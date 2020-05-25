@@ -19,7 +19,6 @@ Give examples
 ### Installation
 1. Install the [NuGet](https://www.nuget.org/packages/Sve.Blazor.DataTable/) package:
 
-   .NET CLI:
    ```
    > dotnet add package Sve.Blazor.DataTable
    
