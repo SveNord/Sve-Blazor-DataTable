@@ -1,0 +1,234 @@
+﻿@using System.Text;
+@using System.Collections.ObjectModel;
+@using System.Linq.Dynamic.Core;
+
+@typeparam TModel
+
+<CascadingValue Value="this">
+    <div class="@ContainerCssClass">
+        <table id="@Id" class="@CssClass @GetTableStyleCssClasses()" @attributes="Attributes">
+            <thead>
+                <tr>
+                    @foreach (DataTableColumn<TModel> column in Columns)
+                    {
+                        <th class="@column.CssClass" style="text-align: @column.TextAlignment; vertical-align: @column.VerticalAlignment;" nowrap>
+
+                            <span style="cursor: pointer" @onclick="(args) => OnColumnHeaderClickedEvent(args, column)">@GetColumnVisualPropertyName(column)</span>
+
+                            @if (column.Sortable)
+                            {
+                                @if (SortColumnGuid.HasValue && column.Guid == SortColumnGuid.Value)
+                                {
+                                    @if (SortDirection == SortDirection.Descending)
+                                    {
+                                        <img style="cursor: pointer" height="15" width="15" alt="SortDown" @onclick="(args) => OnColumnHeaderClickedEvent(args, column)" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABhElEQVR4Xu2YMUqDQRCFvxQ2duItbFJZBsE7eA5BMNhYi0XwIJ7BTq3tvIVtGkFZSCCVuLMzO8W8v0rxz768b9/LsllQ/FkU948AKAHFCagCxQOgH0FVQBUoTkAVKB4AnQKqgCpQnIAqUDwAOgVUAVWgOAFVoHgAdAqoAqpAcQKqQPEA6BRQBVSB4gRUgYEAHANXwMnAGh6jX8AzsLUsZk3AEfAGnFtEA2begQvgu3dtK4BL4KVXLPj9FfDaq2EFsAQ+esWC3z8DPns1rACazga46RUMev8RuLOsPQKgzT4B1xZhx5m2EbfAj2XNEQBNLxvCkPm9AQu4w5ksCMPmvQBkJMHFvCeAmRDczHsDmAHB1XwEgEgI7uajAERACDEfCcATQpj5aAAeEELNzwAwAiHc/CwAFghTzM8E0ANhmvnZAP4DYar5DAB/QZhuPgvAXvcBWO+use3zvfVKO3KbG70Oj2i32dOd6fbHZsqTDSDF9KGoAKRvQfIXUAKSNyBdvnwCfgHh8z9BuCGmqwAAAABJRU5ErkJggg==" />
+                                    }
+                                    else
+                                    {
+                                        <img style="cursor: pointer" height="15" width="15" alt="SortUp" @onclick="(args) => OnColumnHeaderClickedEvent(args, column)" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABlUlEQVR4Xu3XMUoEURCE4d9AMDfxECZmBgZ6BM8hCIqBZxANxIN4AwPR1MxDCF7AQJSBNREWfW+66zVMbTw71f11bbAbLPyzsfD9MYAbsHAB/wQGF2AH+ALeRs0xqgFT7jVwvlr8CrhcYUgtRgBMmXfAya9Nb4EzNYIaYN3yPxZyBCXAX8sPQVAB/Hd5OYICoHV5KUI2QO/yMoRMgLnLSxCyAKKWT0fIAIhePhUhGiBr+TSESIDs5VMQogBUy4cjRAColw9FmAswavkwhDkAo5cPQZgDMP1zO5X+eV8fdgNc9MzSC7AHvPQEJn5nF3htfX8vwBHw0BqW/PwB8Nya0QuwCTwC+62BSc8/AYfAZ+v7ewGmnC3gGNhuDQ1+/h24Bz563jsHoCev3HcMUO4k4oHcADF4uTg3oNxJxAO5AWLwcnFuQLmTiAdyA8Tg5eLcgHInEQ/kBojBy8W5AeVOIh7IDRCDl4tzA8qdRDyQGyAGLxfnBpQ7iXggN0AMXi7ODSh3EvFAboAYvFycG1DuJOKBFt+AbyhyPkHtGJ1/AAAAAElFTkSuQmCC" />
+                                    }
+                                }
+                                else
+                                {
+                                    <img style="cursor: pointer" height="15" width="15" alt="SortUpDown" @onclick="(args) => OnColumnHeaderClickedEvent(args, column)" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAB20lEQVR4nO2bsU5CQRBFD2KMiVZ2hkTp/AITJVYmNnyDX+dHmGhhZWj4AkNC6OysLGyMFrCdBNi5M6sypwKS+3bvoeHtGyBJkiRJtpZOw7WvgavF62fgqcUmui0WBYbAJfMvoAOcAgfAJHojLQQMgfMfPu/RQEK0gGXlC+ESIgWsKl8IlRAlYN3yhTAJEQI2LV8IkeAtoLZ8wV2CpwBr+YKrBC8BqvIFNwkeAtTlCy4S1AK8yhfkEpQCvMsXpBJUAqLKF2QSFAKiyxckEqwCWpUvmCVYBNwAF4a8ih6wB0xrwjuGhQeGrJoBcFQTtAj4bezXhCwCZoasmhnwWhO0nAl2gTPg0HANBe/AC/DZeB9JkiRJkvwxtv6H0K5h4Vugb8grmQF3wNemQcu9QN+QVdMHjmuC/+lu8KMmZBEwMmTVjIC3mqDlRGjK/DiqZ7iGgjHwUBu2nglOaCthDNxbLqA4FW4lwVwedM8FoiVIyoP2yVCUBFl50D8b9JYgLQ8+T4e9JMjLg998gFqCS3nwnRBRSXArD/4zQlYJruUhZkqsVoJ7eYibE9xUQkh5iJ0UXVdCWHmInxVeJSG0PLSZFl8mIbw8tPu/wGSx9sni/TPw2GgvSZIkSbKtfANxTVKVOblB2wAAAABJRU5ErkJggg==" />
+                                }
+                            }
+
+                        </th>
+                    }
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Items)
+                {
+                    <tr>
+                        @foreach (DataTableColumn<TModel> column in Columns)
+                        {
+                            if (column.Template != null)
+                            {
+                                <td>@column.Template(item)</td>
+                            }
+                            else if (column.ChildContent != null)
+                            {
+                                <td>@column.ChildContent</td>
+                            }
+                            else if (column.Property != null)
+                            {
+                                var expression = column.Property.Compile();
+                                var result = expression.DynamicInvoke(item);
+                                <td>@result</td>
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
+                        }
+                    </tr>
+                }
+            </tbody>
+
+            <tfoot>
+                @foreach (DataTableColumn<TModel> column in Columns)
+                {
+
+                }
+            </tfoot>
+        </table>
+
+        @if (UsePaging)
+        {
+            <Paging PageCount="PageCount"
+                           GoToPageEvent="OnGoToPageEvent" />
+        }
+
+    </div>
+
+    @ChildContent
+</CascadingValue>
+
+@code {
+    [Parameter]
+    public IList<TModel> Items { get; set; } = new List<TModel>();
+
+    [Parameter]
+    public string Id { get; set; } = "";
+
+    [Parameter]
+    public string ContainerCssClass { get; set; } = "table-responsive";
+
+    [Parameter]
+    public string CssClass { get; set; } = "table";
+
+    [Parameter]
+    public TableStyle Styles { get; set; }
+
+    [Parameter]
+    public ReadOnlyDictionary<string, object>? Attributes { get; set; }
+
+    [Parameter]
+    public bool UsePaging { get; set; }
+
+    [Parameter]
+    public int PageNr { get; set; } = 1;
+
+    [Parameter]
+    public int PageSize { get; set; } = 30;
+
+    [Parameter]
+    public int PageCount { get; set; } = 1;
+
+    [Parameter]
+    public Func<RequestArgs, Task>? FetchData { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private IList<TModel> AllItems { get; set; } = new List<TModel>();
+
+    private Guid? SortColumnGuid { get; set; }
+    private SortDirection SortDirection { get; set; } = SortDirection.Ascending;
+    private string SortColumn { get; set; }
+
+    private IList<DataTableColumn<TModel>> Columns { get; set; } = new List<DataTableColumn<TModel>>();
+
+    public void AddColumn(DataTableColumn<TModel> column)
+    {
+        Columns.Add(column);
+
+        if (column.IsDefaultSortColumn)
+        {
+            SortColumnGuid = column.Guid;
+            SortDirection = column.DefaultSortDirection;
+            SortColumn = GetColumnVisualPropertyName(column);
+        }
+
+        StateHasChanged();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Items == null) Items = new List<TModel>();
+        if (FetchData != null && (Items.Count == 0)) await FetchData.Invoke(new RequestArgs(PageNr, PageSize, SortDirection, SortColumn));
+        else if (UsePaging && FetchData == null)
+        {
+            AllItems = Items;
+            await PerformClientSidePaging();
+        }
+    }
+
+    private string GetTableStyleCssClasses()
+    {
+        StringBuilder classes = new StringBuilder();
+
+        Styles.ToString().Split(',').Where(e => !string.IsNullOrEmpty(e.ToLower())).ToList().ForEach(e => classes.Append($"table-{e.Trim().ToLower()} "));
+
+        return classes.ToString();
+    }
+
+    private string GetColumnPropertyName(DataTableColumn<TModel> column)
+    {
+        if (column.HeaderText != null) return column.HeaderText;
+        else if (column.Property != null) return Utils.GetPropertyName<TModel>(column.Property);
+        return "";
+    }
+
+    private string GetColumnVisualPropertyName(DataTableColumn<TModel> column)
+    {
+        if (column.HeaderText != null) return column.HeaderText;
+        else if (column.Property != null)
+        {
+            string fullColumnName = GetColumnPropertyName(column);
+            string propertyName = Utils.GetPropertyName<TModel>(column.Property);
+
+            var parts = propertyName.Split('.');
+            if (parts.Length > 0) return parts.Last();
+        }
+
+        return "";
+    }
+
+    private async Task OnColumnHeaderClickedEvent(MouseEventArgs clickEvent, DataTableColumn<TModel> column)
+    {
+        if (!column.Sortable) return;
+
+        // 1. It is the column currently sorted on, so all we do is change the SortDirection
+        if (column.Guid == SortColumnGuid)
+        {
+            if (SortDirection == SortDirection.Ascending) SortDirection = SortDirection.Descending;
+            else SortDirection = SortDirection.Ascending;
+        }
+
+        // 2. It is a different column, so all we do is change the SortColumn
+        else
+        {
+            SortColumnGuid = column.Guid;
+            SortColumn = GetColumnPropertyName(column);
+        }
+
+        // Server or client side
+        if (FetchData == null)
+        {
+            if (UsePaging) await PerformClientSidePaging();
+            else Items = Items.AsQueryable().OrderBy($"{SortColumn} {SortDirection.ToString().ToLower()}").ToList();
+            StateHasChanged();
+        }
+        else await FetchData.Invoke(new RequestArgs(PageNr, PageSize, SortDirection, SortColumn));
+
+    }
+
+    private async Task OnGoToPageEvent(int pageNr)
+    {
+        PageNr = pageNr;
+        if (FetchData == null) await PerformClientSidePaging();
+        else await FetchData.Invoke(new RequestArgs(PageNr, PageSize, SortDirection, SortColumn));
+    }
+
+    private Task PerformClientSidePaging()
+    {
+        var pagedResult = Utils.ApplyPaging(AllItems.AsQueryable(), new Pager(PageNr, PageSize, SortColumn, SortDirection));
+        Items = pagedResult.Data;
+        PageCount = pagedResult.Paging.PageCount;
+        return Task.CompletedTask;
+    }
+}

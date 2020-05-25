@@ -1,0 +1,50 @@
+﻿@using System.Linq.Expressions;
+
+@typeparam TModel
+
+@code {
+    [CascadingParameter]
+    private DataTable<TModel>? DataTable { get; set; }
+
+    [Parameter]
+    public string CssClass { get; set; } = "";
+
+    [Parameter]
+    public TextAlignment TextAlignment { get; set; } = TextAlignment.Left;
+
+    [Parameter]
+    public VerticalAlignment VerticalAlignment { get; set; } = VerticalAlignment.Bottom;
+
+    [Parameter]
+    public bool Sortable { get; set; } = false;
+
+    [Parameter]
+    public string? HeaderText { get; set; }
+
+    [Parameter]
+    public bool IsDefaultSortColumn { get; set; } = false;
+
+    [Parameter]
+    public SortDirection DefaultSortDirection { get; set; } = SortDirection.Ascending;
+
+    [Parameter]
+    public Expression<Func<TModel, object>>? Property { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public RenderFragment<TModel>? Template { get; set; }
+
+    public Guid Guid { get; set; }
+
+    protected override Task OnInitializedAsync()
+    {
+        if (DataTable == null) throw new ArgumentNullException($"A 'DataTableColumn' must be a child of a 'DataTable' component");
+
+        Guid = Guid.NewGuid();
+        DataTable.AddColumn(this);
+
+        return Task.CompletedTask;
+    }
+}
