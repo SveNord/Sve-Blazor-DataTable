@@ -21,14 +21,12 @@ Give examples
 
    .NET CLI:
    ```
-   dotnet add package Sve.Blazor.DataTable
+   > dotnet add package Sve.Blazor.DataTable
+   
+   OR
+   
+   PM> Install-Package Sve.Blazor.DataTable
    ```
-
-   Package Manager:
-   ```
-   Install-Package Sve.Blazor.DataTable
-   ```
-
    Use the `--version` option to specify a specific version to install.
 
    Or use the build in NuGet package manager of your favorite IDEA. Simply search for `Sve.Blazor.DataTable`, select a version and hit install.
