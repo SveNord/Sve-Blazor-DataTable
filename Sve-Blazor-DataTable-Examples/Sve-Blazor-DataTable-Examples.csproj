@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Sve.Blazor.DataTable.Examples</RootNamespace>
+    <AssemblyName>Sve.Blazor.DataTable.Examples</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sve-Blazor-DataTable\Sve-Blazor-DataTable.csproj" />
+  </ItemGroup>
+
+</Project>

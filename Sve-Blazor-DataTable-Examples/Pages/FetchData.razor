@@ -1,0 +1,40 @@
+﻿@page "/fetchdata"
+
+@using Sve.Blazor.DataTable.Examples.Data
+@inject WeatherForecastService ForecastService
+
+<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from a service.</p>
+
+@if (forecasts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <DataTable TModel="WeatherForecast" Items="forecasts" UsePaging="true" PageSize="2">
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Filterable="true" Property="(e) => e.Date"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Filterable="true" Property="(e) => e.TemperatureC"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Filterable="true" Property="(e) => e.TemperatureF"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Filterable="true" Property="(e) => e.MyNullableInt"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Filterable="true" Property="(e) => e.Summary"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Filterable="true" Property="(e) => e.Country"></DataTableColumn>
+    </DataTable>
+}
+
+@code {
+    private WeatherForecast[] forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+        string t = "";
+    }
+
+    private Task DoFetchData(RequestArgs<WeatherForecast> args)
+    {
+        string t = "";
+        return Task.CompletedTask;
+    }
+}

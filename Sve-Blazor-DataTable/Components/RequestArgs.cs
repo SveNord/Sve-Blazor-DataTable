@@ -1,8 +1,9 @@
 ﻿using Sve.Blazor.Core.Models;
+using System.Collections.Generic;
 
 namespace Sve.Blazor.DataTable.Components
 {
-    public class RequestArgs
+    public class RequestArgs<TModel>
     {
         public int PageNr { get; set; }
 
@@ -12,14 +13,15 @@ namespace Sve.Blazor.DataTable.Components
 
         public string SortColumn { get; set; }
 
-        // TODO: Add filters
+        public IList<FilterRule<TModel>> AppliedFilters { get; set; }
 
-        public RequestArgs(int pageNr, int pageSize, SortDirection sortDirection, string sortColumn)
+        public RequestArgs(int pageNr, int pageSize, SortDirection sortDirection, string sortColumn, IList<FilterRule<TModel>> appliedFilters)
         {
             PageNr = pageNr;
             PageSize = pageSize;
             SortDirection = sortDirection;
             SortColumn = sortColumn;
+            AppliedFilters = appliedFilters;
         }
     }
 }
