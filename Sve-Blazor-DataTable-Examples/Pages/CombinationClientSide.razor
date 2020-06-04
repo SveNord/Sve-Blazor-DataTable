@@ -1,11 +1,8 @@
-﻿@page "/fetchdata"
+﻿@page "/combination"
 
-@using Sve.Blazor.DataTable.Examples.Data
 @inject WeatherForecastService ForecastService
 
-<h1>Weather forecast</h1>
-
-<p>This component demonstrates fetching data from a service.</p>
+<h1>Sorting-Paging-Filtering example</h1>
 
 @if (forecasts == null)
 {
@@ -13,7 +10,7 @@
 }
 else
 {
-    <DataTable TModel="WeatherForecast" Items="forecasts" UsePaging="true" PageSize="2">
+    <DataTable TModel="WeatherForecast" Items="forecasts" UsePaging="true">
         <DataTableColumn TModel="WeatherForecast" Sortable="true" Filterable="true" Property="(e) => e.Date"></DataTableColumn>
         <DataTableColumn TModel="WeatherForecast" Sortable="true" Filterable="true" Property="(e) => e.TemperatureC"></DataTableColumn>
         <DataTableColumn TModel="WeatherForecast" Sortable="true" Filterable="true" Property="(e) => e.TemperatureF"></DataTableColumn>
@@ -28,13 +25,6 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
-        string t = "";
-    }
-
-    private Task DoFetchData(RequestArgs<WeatherForecast> args)
-    {
-        string t = "";
-        return Task.CompletedTask;
+        forecasts = await ForecastService.GetForecastAsync(DateTime.Now, 100);
     }
 }

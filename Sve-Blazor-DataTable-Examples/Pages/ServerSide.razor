@@ -1,0 +1,31 @@
+﻿@page "/serverside"
+
+@inject WeatherForecastService ForecastService
+
+<h1>Server side example</h1>
+<span>Sorting, paging and filtering are all being done on the server</span>
+
+<DataTable TModel="WeatherForecast" Items="pagedForecasts.Data" UsePaging="true" FetchData="DoFetchData" PageCount="@pagedForecasts.Paging.PageCount" PageSize="@pagedForecasts.Paging.PageSize">
+    <DataTableColumn TModel="WeatherForecast" Sortable="true" Filterable="true" Property="(e) => e.Date"></DataTableColumn>
+    <DataTableColumn TModel="WeatherForecast" Sortable="true" Filterable="true" Property="(e) => e.TemperatureC"></DataTableColumn>
+    <DataTableColumn TModel="WeatherForecast" Sortable="true" Filterable="true" Property="(e) => e.TemperatureF"></DataTableColumn>
+    <DataTableColumn TModel="WeatherForecast" Sortable="true" Filterable="true" Property="(e) => e.MyNullableInt"></DataTableColumn>
+    <DataTableColumn TModel="WeatherForecast" Sortable="true" Filterable="true" Property="(e) => e.Summary"></DataTableColumn>
+    <DataTableColumn TModel="WeatherForecast" Sortable="true" Filterable="true" Property="(e) => e.Country"></DataTableColumn>
+</DataTable>
+
+@code {
+    private bool firstFetch = true;
+    private Sve.Blazor.Core.Models.PagedResult<WeatherForecast> pagedForecasts = new Core.Models.PagedResult<WeatherForecast>(new List<WeatherForecast>(), pageNr: 1, pageSize: 10, 0);
+
+    private async Task DoFetchData(RequestArgs<WeatherForecast> args)
+    {
+        if (firstFetch)
+        {
+            pagedForecasts = await ForecastService.SearchForecastAsync(null, 1000);
+            firstFetch = false;
+        }
+        else pagedForecasts = await ForecastService.SearchForecastAsync(args, 1000);
+        StateHasChanged();
+    }
+}

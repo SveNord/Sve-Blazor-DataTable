@@ -1,0 +1,36 @@
+﻿@page "/virtualization"
+
+@inject WeatherForecastService ForecastService
+
+<h1>Virtualization example</h1>
+<span>showing 1000 rows</span>
+
+@if (forecasts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <DataTable TModel="WeatherForecast" Items="forecasts">
+        <DataTableColumn TModel="WeatherForecast">
+            <Template Context="forecast">
+                @(Array.IndexOf(forecasts, forecast) + 1)
+            </Template>
+        </DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Filterable="true" Property="(e) => e.Date"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Filterable="true" Property="(e) => e.TemperatureC"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Filterable="true" Property="(e) => e.TemperatureF"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Filterable="true" Property="(e) => e.MyNullableInt"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Filterable="true" Property="(e) => e.Summary"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Filterable="true" Property="(e) => e.Country"></DataTableColumn>
+    </DataTable>
+}
+
+@code {
+    private WeatherForecast[] forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await ForecastService.GetForecastAsync(DateTime.Now, 1000);
+    }
+}

@@ -1,0 +1,31 @@
+﻿@page "/sorting"
+
+@inject WeatherForecastService ForecastService
+
+<h1>Sorting example</h1>
+
+@if (forecasts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <DataTable TModel="WeatherForecast" Items="forecasts">
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Property="(e) => e.Date"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Property="(e) => e.TemperatureC" CustomTitle="Celsius"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Property="(e) => e.TemperatureF" CustomTitle="Fahrenheit"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Property="(e) => e.MyNullableInt"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Property="(e) => e.Summary"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Property="(e) => e.Country"></DataTableColumn>
+    </DataTable>
+}
+
+@code {
+    private WeatherForecast[] forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await ForecastService.GetForecastAsync(DateTime.Now, amount: 20);
+    }
+
+}

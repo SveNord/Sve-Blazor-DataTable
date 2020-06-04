@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sve-Blazor-DataTable", "Sve
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sve-Blazor-DataTable-Examples", "Sve-Blazor-DataTable-Examples\Sve-Blazor-DataTable-Examples.csproj", "{2B4943A9-B8B1-49FD-A813-B05C898F0DE5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sve-Blazor-Core", "..\Sve-Blazor-Core\Sve-Blazor-Core\Sve-Blazor-Core.csproj", "{E9BBC624-60F0-43E3-A46F-9C0E04D613D7}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{2B4943A9-B8B1-49FD-A813-B05C898F0DE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B4943A9-B8B1-49FD-A813-B05C898F0DE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B4943A9-B8B1-49FD-A813-B05C898F0DE5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E9BBC624-60F0-43E3-A46F-9C0E04D613D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E9BBC624-60F0-43E3-A46F-9C0E04D613D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E9BBC624-60F0-43E3-A46F-9C0E04D613D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E9BBC624-60F0-43E3-A46F-9C0E04D613D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

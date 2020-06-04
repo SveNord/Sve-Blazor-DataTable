@@ -22,7 +22,7 @@
     public bool Filterable { get; set; } = false;
 
     [Parameter]
-    public string? HeaderText { get; set; }
+    public string? CustomTitle { get; set; }
 
     [Parameter]
     public bool IsDefaultSortColumn { get; set; } = false;
@@ -46,8 +46,7 @@
     {
         get
         {
-            if (HeaderText != null) return typeof(string);
-            else if (Property != null) return Utils.GetPropertyType(Property);
+            if (Property != null) return Utils.GetPropertyType(Property);
             return null;
         }
     }
@@ -64,15 +63,14 @@
 
     public string GetColumnPropertyName()
     {
-        if (HeaderText != null) return HeaderText;
-        else if (Property != null) return Utils.GetPropertyName<TModel>(Property);
+        if (Property != null) return Utils.GetPropertyName<TModel>(Property);
         return "";
     }
 
     public string GetColumnVisualPropertyName()
     {
-        if (HeaderText != null) return HeaderText;
-        else if (Property != null)
+       
+        if (Property != null)
         {
             string fullColumnName = GetColumnPropertyName();
             string propertyName = Utils.GetPropertyName<TModel>(Property);

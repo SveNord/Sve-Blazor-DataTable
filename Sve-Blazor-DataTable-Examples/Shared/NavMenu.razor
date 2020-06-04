@@ -8,18 +8,55 @@
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <ul class="nav flex-column">
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
+            <NavLink class="nav-link" href="/" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Basic
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
+            <NavLink class="nav-link" href="/sorting" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Sorting
             </NavLink>
         </li>
+
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
+            <NavLink class="nav-link" href="/paging" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Pagination
+            </NavLink>
+        </li>
+
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="/filtering" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Filtering
+            </NavLink>
+        </li>
+
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="/combination" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Sorting-Paging-Filtering
+            </NavLink>
+        </li>
+
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="/virtualization" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Virtualization
+            </NavLink>
+        </li>
+
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="/serverside" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Server side
+            </NavLink>
+        </li>
+
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="/styles" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Styles
+            </NavLink>
+        </li>
+        
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="/alignment" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Alignment
             </NavLink>
         </li>
     </ul>
@@ -28,7 +65,7 @@
 @code {
     private bool collapseNavMenu = true;
 
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    private string NavMenuCssClass => collapseNavMenu ? "collapse show" : null;
 
     private void ToggleNavMenu()
     {

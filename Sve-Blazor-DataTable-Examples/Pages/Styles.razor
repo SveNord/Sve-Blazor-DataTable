@@ -1,0 +1,91 @@
+﻿@page "/styles"
+
+@inject WeatherForecastService ForecastService
+
+<h1>Styles example</h1>
+
+@if (forecasts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <h6>Small table</h6>
+    <DataTable TModel="WeatherForecast" Items="forecasts" Styles="TableStyle.Sm">
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Property="(e) => e.Date"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Property="(e) => e.TemperatureC"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Property="(e) => e.TemperatureF"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Property="(e) => e.MyNullableInt"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Property="(e) => e.Summary"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Property="(e) => e.Country"></DataTableColumn>
+    </DataTable>
+
+    <br />
+
+    <h6>Bordered table</h6>
+    <DataTable TModel="WeatherForecast" Items="forecasts" Styles="TableStyle.Bordered">
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Property="(e) => e.Date"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Property="(e) => e.TemperatureC"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Property="(e) => e.TemperatureF"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Property="(e) => e.MyNullableInt"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Property="(e) => e.Summary"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Property="(e) => e.Country"></DataTableColumn>
+    </DataTable>
+
+    <br />
+
+    <h6>Borderless table</h6>
+    <DataTable TModel="WeatherForecast" Items="forecasts" Styles="TableStyle.Borderless">
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Property="(e) => e.Date"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Property="(e) => e.TemperatureC"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Property="(e) => e.TemperatureF"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Property="(e) => e.MyNullableInt"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Property="(e) => e.Summary"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Property="(e) => e.Country"></DataTableColumn>
+    </DataTable>
+
+    <br />
+
+    <h6>Dark table</h6>
+    <DataTable TModel="WeatherForecast" Items="forecasts" Styles="TableStyle.Dark">
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Property="(e) => e.Date"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Property="(e) => e.TemperatureC"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Property="(e) => e.TemperatureF"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Property="(e) => e.MyNullableInt"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Property="(e) => e.Summary"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Property="(e) => e.Country"></DataTableColumn>
+    </DataTable>
+
+    <br />
+
+    <h6>Hoverable table</h6>
+    <DataTable TModel="WeatherForecast" Items="forecasts" Styles="TableStyle.Hover">
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Property="(e) => e.Date"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Property="(e) => e.TemperatureC"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Property="(e) => e.TemperatureF"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Property="(e) => e.MyNullableInt"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Property="(e) => e.Summary"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Property="(e) => e.Country"></DataTableColumn>
+    </DataTable>
+
+    <br />
+
+    <h6>Striped table</h6>
+    <DataTable TModel="WeatherForecast" Items="forecasts" Styles="TableStyle.Striped">
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Property="(e) => e.Date"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Property="(e) => e.TemperatureC"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Property="(e) => e.TemperatureF"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Property="(e) => e.MyNullableInt"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Property="(e) => e.Summary"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" Sortable="true" Property="(e) => e.Country"></DataTableColumn>
+    </DataTable>
+}
+
+@code {
+    private WeatherForecast[] forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await ForecastService.GetForecastAsync(DateTime.Now, 57);
+    }
+}

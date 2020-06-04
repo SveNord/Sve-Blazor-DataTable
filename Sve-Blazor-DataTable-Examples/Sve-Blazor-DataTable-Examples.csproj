@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Sve.Blazor.DataTable.Examples</RootNamespace>
     <AssemblyName>Sve.Blazor.DataTable.Examples</AssemblyName>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>

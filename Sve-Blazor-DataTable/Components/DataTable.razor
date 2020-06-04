@@ -9,18 +9,14 @@
 @typeparam TModel
 
 <CascadingValue Value="this">
-    <div class="@ContainerCssClass">
-        
-        <Virtualize TModel="TModel" >
+    <div class="@ContainerCssClass" style='@(UsePaging ? "" : $"overflow: auto; height: {ContainerHeight}px; position: relative") '>
 
-        </Virtualize>
-        
         <table id="@Id" class="@CssClass @GetTableStyleCssClasses()" @attributes="Attributes">
             <thead>
                 <tr>
                     @foreach (DataTableColumn<TModel> column in Columns)
                     {
-                        <th class="@column.CssClass" style="text-align: @column.TextAlignment; vertical-align: @column.VerticalAlignment;" id="@column.Guid.ToString()" nowrap>
+                        <th class="@column.CssClass" style='text-align: @column.TextAlignment; @GetTableHeaderBorderStyle() top: 0; position: sticky; z-index: 1; border-top: none; background-color: @(Styles.HasFlag(TableStyle.Dark) ? "black" : "white");' id="@column.Guid.ToString();" nowrap>
 
                             <span style="cursor: pointer" @onclick="(args) => OnColumnHeaderClickedEvent(args, column)">@column.GetColumnVisualPropertyName()</span>
 
@@ -62,34 +58,67 @@
                 </tr>
             </thead>
 
-            <tbody>
-                @foreach (var item in Items)
-                {
-                    <tr>
+            @if (UsePaging)
+            {
+                <tbody>
+                    @foreach (var item in Items)
+                    {
+                        <tr>
+                            @foreach (DataTableColumn<TModel> column in Columns)
+                            {
+                                if (column.Template != null)
+                                {
+                                    <td style="text-align: @column.TextAlignment;">@column.Template(item)</td>
+                                }
+                                else if (column.ChildContent != null)
+                                {
+                                    <td style="text-align: @column.TextAlignment;">@column.ChildContent</td>
+                                }
+                                else if (column.Property != null)
+                                {
+                                    var expression = column.Property.Compile();
+                                    var result = expression.DynamicInvoke(item);
+                                    <td style="text-align: @column.TextAlignment;">@result</td>
+                                }
+                                else
+                                {
+                                    <td style="text-align: @column.TextAlignment;"></td>
+                                }
+                            }
+                        </tr>
+                    }
+                </tbody>
+            }
+            else
+            {
+                <Virtualize TModel="TModel" TagName="tbody" ItemHeight="@GetItemHeight()" Items="Items" Context="item">
+                    <tr id="@item.GetHashCode()" style="height: 25px;">
+
                         @foreach (DataTableColumn<TModel> column in Columns)
                         {
                             if (column.Template != null)
                             {
-                                <td>@column.Template(item)</td>
+                                <td style="height: 25px; @GetTableDataRowBorderStyle() text-align: @column.TextAlignment;">@column.Template(item)</td>
                             }
                             else if (column.ChildContent != null)
                             {
-                                <td>@column.ChildContent</td>
+                                <td style="height: 25px; @GetTableDataRowBorderStyle() text-align: @column.TextAlignment;">@column.ChildContent</td>
                             }
                             else if (column.Property != null)
                             {
                                 var expression = column.Property.Compile();
                                 var result = expression.DynamicInvoke(item);
-                                <td>@result</td>
+                                <td style="height: 25px; @GetTableDataRowBorderStyle() text-align: @column.TextAlignment;">@result</td>
                             }
                             else
                             {
-                                <td></td>
+                                <td style="height: 25px; @GetTableDataRowBorderStyle() text-align: @column.TextAlignment;"></td>
                             }
                         }
                     </tr>
-                }
-            </tbody>
+                </Virtualize>
+
+            }
 
             <tfoot>
                 @*TODO*@
@@ -162,7 +191,7 @@
 
                                 <div class="input-group col-lg-3 col-md-3 col-sm-12">
                                     <select class="custom-select" @onchange="(e) => filterRule.FilterType = ObjectFilter.FromDisplayName<ObjectFilter>(e.Value.ToString())">
-                                        @foreach (ObjectFilter objectFilter in ObjectFilter.GetAll<ObjectFilter>().ToList().Where(e => e.AllowsType(filterRule.ExpectedValueType)))
+                                        @foreach (ObjectFilter objectFilter in ObjectFilter.GetAll<ObjectFilter>().ToList().Where(e => e.AllowsType(filterRule.ExpectedValueType) && (!filterRule.IsNullable ? e.IsNonNullableAllowed : true)))
                                         {
                                             @if (filterRule.FilterType.Id == objectFilter.Id)
                                             {
@@ -290,13 +319,16 @@
     public int PageNr { get; set; } = 1;
 
     [Parameter]
-    public int PageSize { get; set; } = 30;
+    public int PageSize { get; set; } = 10;
 
     [Parameter]
     public int PageCount { get; set; } = 1;
 
     [Parameter]
     public Func<RequestArgs<TModel>, Task>? FetchData { get; set; }
+
+    [Parameter]
+    public int ContainerHeight { get; set; } = 300;
 
     /// <summary>
     /// Determines whether or not to automatically add a (non applied) filter to the modal, after pressing the filter button on a column (only when there are no applied filters).
@@ -333,14 +365,12 @@
 
     protected override async Task OnInitializedAsync()
     {
+        if (Items == null) Items = new List<TModel>();
+
         AllItems = Items;
 
-        if (Items == null) Items = new List<TModel>();
-        if (FetchData != null && (Items.Count == 0)) await FetchData.Invoke(new RequestArgs<TModel>(PageNr, PageSize, SortDirection, SortColumn, FilterRules));
-        else if (UsePaging && FetchData == null)
-        {
-            await PerformClientSideDataManipulations();
-        }
+        if (FetchData != null && (AllItems.Count == 0)) await FetchData.Invoke(new RequestArgs<TModel>(PageNr, PageSize, SortDirection, SortColumn, FilterRules));
+        else if (UsePaging && FetchData == null) await PerformClientSideDataManipulations();
     }
 
     protected override void OnAfterRender(bool firstRender)
@@ -361,6 +391,27 @@
         Styles.ToString().Split(',').Where(e => !string.IsNullOrEmpty(e.ToLower())).ToList().ForEach(e => classes.Append($"table-{e.Trim().ToLower()} "));
 
         return classes.ToString();
+    }
+
+    private string GetTableHeaderBorderStyle()
+    {
+        //if (Styles.HasFlag(TableStyle.Bordered)) return "box-shadow: inset 1px 1px #dee2e6, 1px 1px #dee2e6;";
+        if (Styles.HasFlag(TableStyle.Bordered)) return "box-shadow: inset 1px 1px #dee2e6, 1px 1px #dee2e6; border: none;";
+        else if (Styles.HasFlag(TableStyle.Borderless)) return "";
+        else return "box-shadow: inset 0px 1px #dee2e6, 0 1px #dee2e6;";
+    }
+
+    private string GetTableDataRowBorderStyle()
+    {
+        if (Styles.HasFlag(TableStyle.Bordered)) return "box-shadow: inset 1px -1px #dee2e6; border: none;";
+        else if (Styles.HasFlag(TableStyle.Borderless)) return "";
+        else return "box-shadow: inset 0px -1px #dee2e6;";
+    }
+
+    private int GetItemHeight()
+    {
+        if (Styles.HasFlag(TableStyle.Sm)) return 25;
+        else return 90;
     }
 
     private async Task OnColumnHeaderClickedEvent(MouseEventArgs clickEvent, DataTableColumn<TModel> column)

@@ -1,0 +1,81 @@
+﻿@page "/alignment"
+
+@inject WeatherForecastService ForecastService
+
+<h1>Alignment example</h1>
+
+@if (forecasts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <h6>Text alignment center</h6>
+    <DataTable TModel="WeatherForecast" Items="forecasts">
+        <DataTableColumn TModel="WeatherForecast" TextAlignment="Core.Models.TextAlignment.Center" Sortable="true" Property="(e) => e.Date"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" TextAlignment="Core.Models.TextAlignment.Center" Sortable="true" Property="(e) => e.TemperatureC"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" TextAlignment="Core.Models.TextAlignment.Center" Sortable="true" Property="(e) => e.TemperatureF"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" TextAlignment="Core.Models.TextAlignment.Center" Sortable="true" Property="(e) => e.MyNullableInt"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" TextAlignment="Core.Models.TextAlignment.Center" Sortable="true" Property="(e) => e.Summary"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" TextAlignment="Core.Models.TextAlignment.Center" Sortable="true" Property="(e) => e.Country"></DataTableColumn>
+    </DataTable>
+
+    <br />
+
+    <h6>Text alignment end</h6>
+    <DataTable TModel="WeatherForecast" Items="forecasts">
+        <DataTableColumn TModel="WeatherForecast" TextAlignment="Core.Models.TextAlignment.End" Sortable="true" Property="(e) => e.Date"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" TextAlignment="Core.Models.TextAlignment.End" Sortable="true" Property="(e) => e.TemperatureC"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" TextAlignment="Core.Models.TextAlignment.End" Sortable="true" Property="(e) => e.TemperatureF"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" TextAlignment="Core.Models.TextAlignment.End" Sortable="true" Property="(e) => e.MyNullableInt"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" TextAlignment="Core.Models.TextAlignment.End" Sortable="true" Property="(e) => e.Summary"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" TextAlignment="Core.Models.TextAlignment.End" Sortable="true" Property="(e) => e.Country"></DataTableColumn>
+    </DataTable>
+
+    <br />
+
+    <h6>Text alignment left</h6>
+    <DataTable TModel="WeatherForecast" Items="forecasts">
+        <DataTableColumn TModel="WeatherForecast" TextAlignment="Core.Models.TextAlignment.Left" Sortable="true" Property="(e) => e.Date"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" TextAlignment="Core.Models.TextAlignment.Left" Sortable="true" Property="(e) => e.TemperatureC"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" TextAlignment="Core.Models.TextAlignment.Left" Sortable="true" Property="(e) => e.TemperatureF"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" TextAlignment="Core.Models.TextAlignment.Left" Sortable="true" Property="(e) => e.MyNullableInt"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" TextAlignment="Core.Models.TextAlignment.Left" Sortable="true" Property="(e) => e.Summary"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" TextAlignment="Core.Models.TextAlignment.Left" Sortable="true" Property="(e) => e.Country"></DataTableColumn>
+    </DataTable>
+
+    <br />
+
+    <h6>Text alignment right</h6>
+    <DataTable TModel="WeatherForecast" Items="forecasts">
+        <DataTableColumn TModel="WeatherForecast" TextAlignment="Core.Models.TextAlignment.Right" Sortable="true" Property="(e) => e.Date"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" TextAlignment="Core.Models.TextAlignment.Right" Sortable="true" Property="(e) => e.TemperatureC"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" TextAlignment="Core.Models.TextAlignment.Right" Sortable="true" Property="(e) => e.TemperatureF"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" TextAlignment="Core.Models.TextAlignment.Right" Sortable="true" Property="(e) => e.MyNullableInt"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" TextAlignment="Core.Models.TextAlignment.Right" Sortable="true" Property="(e) => e.Summary"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" TextAlignment="Core.Models.TextAlignment.Right" Sortable="true" Property="(e) => e.Country"></DataTableColumn>
+    </DataTable>
+
+    <br />
+
+    <h6>Text alignment start</h6>
+    <DataTable TModel="WeatherForecast" Items="forecasts">
+        <DataTableColumn TModel="WeatherForecast" TextAlignment="Core.Models.TextAlignment.Start" Sortable="true" Property="(e) => e.Date"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" TextAlignment="Core.Models.TextAlignment.Start" Sortable="true" Property="(e) => e.TemperatureC"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" TextAlignment="Core.Models.TextAlignment.Start" Sortable="true" Property="(e) => e.TemperatureF"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" TextAlignment="Core.Models.TextAlignment.Start" Sortable="true" Property="(e) => e.MyNullableInt"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" TextAlignment="Core.Models.TextAlignment.Start" Sortable="true" Property="(e) => e.Summary"></DataTableColumn>
+        <DataTableColumn TModel="WeatherForecast" TextAlignment="Core.Models.TextAlignment.Start" Sortable="true" Property="(e) => e.Country"></DataTableColumn>
+    </DataTable>
+
+    <br />
+}
+
+@code {
+    private WeatherForecast[] forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await ForecastService.GetForecastAsync(DateTime.Now, 57);
+    }
+}
