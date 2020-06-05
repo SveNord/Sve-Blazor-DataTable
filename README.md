@@ -310,7 +310,7 @@ public async Task SearchForecastAsync(RequestArgs<WeatherForecast> args)
     <DataTableColumn TModel="WeatherForecast" TextAlignment="Core.Models.TextAlignment.Left" IsSortable="true" Property="(e) => e.TemperatureF" CustomTitle="Fahrenheit"/>
     <DataTableColumn TModel="WeatherForecast" TextAlignment="Core.Models.TextAlignment.Right" IsSortable="true" Property="(e) => e.MyNullableInt"/>
     <DataTableColumn TModel="WeatherForecast" TextAlignment="Core.Models.TextAlignment.Start" IsSortable="true" Property="(e) => e.Summary"/>
-    </DataTable>
+</DataTable>
 ```
 
 ![Alignment example](/Sve-Blazor-DataTable-Examples/Content/AlignmentExample.PNG)
