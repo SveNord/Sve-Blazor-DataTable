@@ -1,9 +1,8 @@
-- Virtualization 
-# Sve-Blazor-DataTable
+ # Sve-Blazor-DataTable
 
 Blazor DataTable component with support for client/server side paging, filtering and sorting, build on top of bootstrap 4.
 
-<img src="https://static.pcactive.nl/images/PCA/PCA_309/giphy.gif" />
+![Main gif](/Sve-Blazor-DataTable-Examples/Content/Main.gif)
  
 ## Getting Started 
 
