@@ -76,7 +76,7 @@ These instructions will get you a copy of the project up and running on your loc
 </DataTable>
 ```
 
-![Template example](/Sve-Blazor-DataTable-Examples/Content/CustomTemplateExample.png)
+![Template example](Sve-Blazor-DataTable-Examples/Content/CustomTemplateExample.png)
 
 
 ### Sorting
