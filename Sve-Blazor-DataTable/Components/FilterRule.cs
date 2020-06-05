@@ -92,5 +92,11 @@ namespace Sve.Blazor.DataTable.Components
                 }
             }
         }
+
+        public string GetAppliedFilterRuleText()
+        {
+            if (FilterType.ValueRequired) return $"{PropertyName}\t{FilterType.ToString()}\t{FilterValue}";
+            else return $"{PropertyName}\t{FilterType.ToString()}";
+        }
     }
 }

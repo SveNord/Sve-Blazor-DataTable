@@ -1,0 +1,43 @@
+﻿@page "/customTemplate"
+
+@inject WeatherForecastService ForecastService
+
+<h1>Custom row template example</h1>
+
+@if (forecasts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <DataTable TModel="WeatherForecast" Items="forecasts">
+        <DataTableColumn TModel="WeatherForecast" Property="(e) => e.Date" />
+        <DataTableColumn TModel="WeatherForecast" Property="(e) => e.TemperatureC" CustomTitle="Celsius" />
+        <DataTableColumn TModel="WeatherForecast" Property="(e) => e.TemperatureF" CustomTitle="Fahrenheit" />
+        <DataTableColumn TModel="WeatherForecast" Property="(e) => e.MyNullableInt" />
+        <DataTableColumn TModel="WeatherForecast" Property="(e) => e.Summary" />
+        <DataTableColumn TModel="WeatherForecast" Property="(e) => e.Country" />
+        <DataTableColumn TModel="WeatherForecast" Property="(e) => e.UpdatedRecently" CustomTitle="Recently updated">
+            <Template Context="forecast">
+                @if (forecast.UpdatedRecently)
+                {
+                    <i class="fas fa-check-circle" style="color: green;"></i>
+                }
+                else
+                {
+            <i class="far fa-times-circle" style="color: red;"></i>
+                }
+            </Template>
+        </DataTableColumn>
+    </DataTable>
+}
+
+@code {
+    private WeatherForecast[] forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await ForecastService.GetForecastAsync(DateTime.Now, amount: 20);
+    }
+
+}

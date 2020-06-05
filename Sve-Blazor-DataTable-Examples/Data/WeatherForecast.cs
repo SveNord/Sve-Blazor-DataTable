@@ -15,5 +15,7 @@ namespace Sve.Blazor.DataTable.Examples.Data
         public string Summary { get; set; }
     
         public Country Country { get; set; }
+        
+        public bool UpdatedRecently { get; set; }
     }
 }

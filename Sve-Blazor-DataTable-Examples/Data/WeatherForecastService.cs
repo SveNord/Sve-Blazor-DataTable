@@ -25,7 +25,8 @@ namespace Sve.Blazor.DataTable.Examples.Data
                 TemperatureC = rng.Next(-20, 55),
                 Summary = Summaries[rng.Next(Summaries.Length)],
                 MyNullableInt = rng.Next(1, 10) > 3 ? (int?)null : 1,
-                Country = (Country) Enum.GetValues(typeof(Country)).GetValue(rng.Next(0, Enum.GetValues(typeof(Country)).Length))
+                Country = (Country) Enum.GetValues(typeof(Country)).GetValue(rng.Next(0, Enum.GetValues(typeof(Country)).Length)),
+                UpdatedRecently = rng.Next(1, 10) > 3 ? true : false
             }).ToArray());
         }
 
@@ -45,7 +46,8 @@ namespace Sve.Blazor.DataTable.Examples.Data
                     TemperatureC = rng.Next(-20, 55),
                     Summary = Summaries[rng.Next(Summaries.Length)],
                     MyNullableInt = rng.Next(1, 10) > 3 ? (int?)null : 1,
-                    Country = (Country)Enum.GetValues(typeof(Country)).GetValue(rng.Next(0, Enum.GetValues(typeof(Country)).Length))
+                    Country = (Country)Enum.GetValues(typeof(Country)).GetValue(rng.Next(0, Enum.GetValues(typeof(Country)).Length)),
+                    UpdatedRecently = rng.Next(1, 10) > 3 ? true : false
                 }).ToArray();
 
                 pager = new Pager(pageNr: 1, pageSize: 10, sortColumn: "", SortDirection.Ascending);

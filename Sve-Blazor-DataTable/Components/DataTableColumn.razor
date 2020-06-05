@@ -16,10 +16,13 @@
     public VerticalAlignment VerticalAlignment { get; set; } = VerticalAlignment.Bottom;
 
     [Parameter]
-    public bool Sortable { get; set; } = false;
+    public bool IsSortable { get; set; } = false;
 
     [Parameter]
-    public bool Filterable { get; set; } = false;
+    public bool IsFilterable { get; set; } = false;
+
+    [Parameter]
+    public bool IncludeHeaderFilter { get; set; } = false;
 
     [Parameter]
     public string? CustomTitle { get; set; }
@@ -32,7 +35,6 @@
 
     [Parameter]
     public Expression<Func<TModel, object>>? Property { get; set; }
-    //public Expression<Func<TModel, object>>? Property { get; set; }
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -69,7 +71,7 @@
 
     public string GetColumnVisualPropertyName()
     {
-       
+        //Don't return custom title anymore, since it causes issues with trying to sort or filter
         if (Property != null)
         {
             string fullColumnName = GetColumnPropertyName();

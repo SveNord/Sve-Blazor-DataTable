@@ -1,0 +1,206 @@
+﻿@typeparam TModel
+
+@if (IsHeaderRule)
+{
+    @if (FilterRule.ExpectedValueType.IsEnum)
+    {
+        var enumValues = Enum.GetNames(FilterRule.ExpectedValueType).ToList();
+        <EnumInput Value="@FilterRule.FilterValue"
+                   EnumValues="@enumValues"
+                   OnValueChangedEvent="@FilterRule.UpdateFilterValue"
+                   IncludeApply="true"
+                   IsApplied="@FilterRule.IsApplied"
+                   AppliedText="@FilterRule.FilterValue.ToString()"
+                   ApplyFilterEvent="(e) => ApplyFilter(FilterRule.Guid, true)"
+                   UnApplyFilterEvent="(e) => FilterRule.IsApplied = false" />
+    }
+    else
+    {
+        @switch (Type.GetTypeCode(FilterRule.ExpectedValueType))
+        {
+            case TypeCode.Int16:
+                <NumberInput TNumber="short"
+                             Value="@FilterRule.FilterValue"
+                             OnValueChangedEvent="@FilterRule.UpdateFilterValue"
+                             IncludeApply="true"
+                             IsApplied="@FilterRule.IsApplied"
+                             AppliedText="@FilterRule.FilterValue!.ToString()"
+                             ApplyFilterEvent="(e) => ApplyFilter(FilterRule.Guid, true)"
+                             UnApplyFilterEvent="(e) => FilterRule.IsApplied = false" />
+                break;
+            case TypeCode.Int32:
+                <NumberInput TNumber="int"
+                             Value="@FilterRule.FilterValue"
+                             OnValueChangedEvent="@FilterRule.UpdateFilterValue"
+                             IncludeApply="true"
+                             IsApplied="@FilterRule.IsApplied"
+                             AppliedText="@FilterRule.FilterValue!.ToString()"
+                             ApplyFilterEvent="(e) => ApplyFilter(FilterRule.Guid, true)"
+                             UnApplyFilterEvent="(e) => FilterRule.IsApplied = false" />
+                break;
+            case TypeCode.Int64:
+                <NumberInput TNumber="long"
+                             Value="@FilterRule.FilterValue"
+                             OnValueChangedEvent="@FilterRule.UpdateFilterValue"
+                             IncludeApply="true"
+                             IsApplied="@FilterRule.IsApplied"
+                             AppliedText="@FilterRule.FilterValue!.ToString()"
+                             ApplyFilterEvent="(e) => ApplyFilter(FilterRule.Guid, true)"
+                             UnApplyFilterEvent="(e) => FilterRule.IsApplied = false" />
+                break;
+            case TypeCode.UInt16:
+                <NumberInput TNumber="ushort"
+                             Value="@FilterRule.FilterValue"
+                             OnValueChangedEvent="@FilterRule.UpdateFilterValue"
+                             IncludeApply="true"
+                             IsApplied="@FilterRule.IsApplied"
+                             AppliedText="@FilterRule.FilterValue!.ToString()"
+                             ApplyFilterEvent="(e) => ApplyFilter(FilterRule.Guid, true)"
+                             UnApplyFilterEvent="(e) => FilterRule.IsApplied = false" />
+                break;
+            case TypeCode.UInt32:
+                <NumberInput TNumber="uint"
+                             Value="@FilterRule.FilterValue"
+                             OnValueChangedEvent="@FilterRule.UpdateFilterValue"
+                             IncludeApply="true"
+                             IsApplied="@FilterRule.IsApplied"
+                             AppliedText="@FilterRule.FilterValue!.ToString()"
+                             ApplyFilterEvent="(e) => ApplyFilter(FilterRule.Guid, true)"
+                             UnApplyFilterEvent="(e) => FilterRule.IsApplied = false" />
+                break;
+            case TypeCode.UInt64:
+                <NumberInput TNumber="ulong"
+                             Value="@FilterRule.FilterValue"
+                             OnValueChangedEvent="@FilterRule.UpdateFilterValue"
+                             IncludeApply="true"
+                             IsApplied="@FilterRule.IsApplied"
+                             AppliedText="@FilterRule.FilterValue!.ToString()"
+                             ApplyFilterEvent="(e) => ApplyFilter(FilterRule.Guid, true)"
+                             UnApplyFilterEvent="(e) => FilterRule.IsApplied = false" />
+                break;
+            case TypeCode.Double:
+                <FloatingPointInput TFloatingPoint="double"
+                                    Value="@FilterRule.FilterValue"
+                                    OnValueChangedEvent="@FilterRule.UpdateFilterValue"
+                                    IncludeApply="true"
+                                    IsApplied="@FilterRule.IsApplied"
+                                    AppliedText="@FilterRule.FilterValue!.ToString()"
+                                    ApplyFilterEvent="(e) => ApplyFilter(FilterRule.Guid, true)"
+                                    UnApplyFilterEvent="(e) => FilterRule.IsApplied = false" />
+                break;
+            case TypeCode.Decimal:
+                <FloatingPointInput TFloatingPoint="decimal"
+                                    Value="@FilterRule.FilterValue"
+                                    OnValueChangedEvent="@FilterRule.UpdateFilterValue"
+                                    IncludeApply="true"
+                                    IsApplied="@FilterRule.IsApplied"
+                                    AppliedText="@FilterRule.FilterValue!.ToString()"
+                                    ApplyFilterEvent="(e) => ApplyFilter(FilterRule.Guid, true)"
+                                    UnApplyFilterEvent="(e) => FilterRule.IsApplied = false" />
+                break;
+            case TypeCode.Boolean:
+                <BooleanInput Value="@FilterRule.FilterValue"
+                              OnValueChangedEvent="@FilterRule.UpdateFilterValue"
+                              IncludeApply="true"
+                              IsApplied="@FilterRule.IsApplied"
+                              AppliedText="@FilterRule.FilterValue!.ToString()"
+                              ApplyFilterEvent="(e) => ApplyFilter(FilterRule.Guid, true)"
+                              UnApplyFilterEvent="(e) => FilterRule.IsApplied = false" />
+                break;
+            case TypeCode.String:
+                <StringInput Value="@FilterRule.FilterValue"
+                             OnValueChangedEvent="@FilterRule.UpdateFilterValue"
+                             IncludeApply="true"
+                             IsApplied="@FilterRule.IsApplied"
+                             AppliedText="@FilterRule.FilterValue!.ToString()"
+                             ApplyFilterEvent="(e) => ApplyFilter(FilterRule.Guid, true)"
+                             UnApplyFilterEvent="(e) => FilterRule.IsApplied = false" />
+                break;
+            case TypeCode.DateTime:
+                <DateTimeInput Value="@FilterRule.FilterValue"
+                               OnValueChangedEvent="@FilterRule.UpdateFilterValue"
+                               IncludeApply="true"
+                               IsApplied="@FilterRule.IsApplied"
+                               AppliedText="@FilterRule.FilterValue!.ToString()"
+                               ApplyFilterEvent="(e) => ApplyFilter(FilterRule.Guid, true)"
+                               UnApplyFilterEvent="(e) => FilterRule.IsApplied = false" />
+                break;
+
+            // TODO: Might be possible
+            case TypeCode.Object:
+                throw new Exception("Unsupported property type for filtering");
+            case TypeCode.Char:
+            case TypeCode.Byte:
+            case TypeCode.SByte:
+            case TypeCode.Single:
+                throw new Exception("Unsupported property type for filtering");
+        }
+    }
+}
+else
+{
+    @if (FilterRule.ExpectedValueType.IsEnum)
+    {
+        var enumValues = Enum.GetNames(FilterRule.ExpectedValueType).ToList();
+        <EnumInput Value="@FilterRule.FilterValue" EnumValues="@enumValues" OnValueChangedEvent="@FilterRule.UpdateFilterValue" />
+    }
+    else
+    {
+        @switch (Type.GetTypeCode(FilterRule.ExpectedValueType))
+        {
+            case TypeCode.Int16:
+                <NumberInput TNumber="short" Value="@FilterRule.FilterValue" OnValueChangedEvent="@FilterRule.UpdateFilterValue" />
+                break;
+            case TypeCode.Int32:
+                <NumberInput TNumber="int" Value="@FilterRule.FilterValue" OnValueChangedEvent="@FilterRule.UpdateFilterValue" />
+                break;
+            case TypeCode.Int64:
+                <NumberInput TNumber="long" Value="@FilterRule.FilterValue" OnValueChangedEvent="@FilterRule.UpdateFilterValue" />
+                break;
+            case TypeCode.UInt16:
+                <NumberInput TNumber="ushort" Value="@FilterRule.FilterValue" OnValueChangedEvent="@FilterRule.UpdateFilterValue" />
+                break;
+            case TypeCode.UInt32:
+                <NumberInput TNumber="uint" Value="@FilterRule.FilterValue" OnValueChangedEvent="@FilterRule.UpdateFilterValue" />
+                break;
+            case TypeCode.UInt64:
+                <NumberInput TNumber="ulong" Value="@FilterRule.FilterValue" OnValueChangedEvent="@FilterRule.UpdateFilterValue" />
+                break;
+            case TypeCode.Double:
+                <FloatingPointInput TFloatingPoint="double" Value="@FilterRule.FilterValue" OnValueChangedEvent="@FilterRule.UpdateFilterValue" />
+                break;
+            case TypeCode.Decimal:
+                <FloatingPointInput TFloatingPoint="decimal" Value="@FilterRule.FilterValue" OnValueChangedEvent="@FilterRule.UpdateFilterValue" />
+                break;
+            case TypeCode.Boolean:
+                <BooleanInput Value="@FilterRule.FilterValue" OnValueChangedEvent="@FilterRule.UpdateFilterValue" />
+                break;
+            case TypeCode.String:
+                <StringInput Value="@FilterRule.FilterValue" OnValueChangedEvent="@FilterRule.UpdateFilterValue" />
+                break;
+            case TypeCode.DateTime:
+                <DateTimeInput Value="@FilterRule.FilterValue" OnValueChangedEvent="@FilterRule.UpdateFilterValue" />
+                break;
+
+            // TODO: Might be possible
+            case TypeCode.Object:
+                throw new Exception("Unsupported property type for filtering");
+            case TypeCode.Char:
+            case TypeCode.Byte:
+            case TypeCode.SByte:
+            case TypeCode.Single:
+                throw new Exception("Unsupported property type for filtering");
+        }
+    }
+}
+
+@code {
+    [Parameter]
+    public FilterRule<TModel> FilterRule { get; set; }
+
+    [Parameter]
+    public bool IsHeaderRule { get; set; }
+
+    [Parameter]
+    public Func<Guid, bool, Task> ApplyFilter { get; set; }
+}
