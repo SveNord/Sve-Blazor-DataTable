@@ -51,6 +51,9 @@ These instructions will get you a copy of the project up and running on your loc
 ```
 ![Basic example](/Sve-Blazor-DataTable-Examples/Content/BasicExample.PNG)
 
+<br />
+<br />
+
 ### Custom template
 
 ```cs
@@ -78,6 +81,8 @@ These instructions will get you a copy of the project up and running on your loc
 
 ![Template example](Sve-Blazor-DataTable-Examples/Content/CustomTemplateExample.PNG)
 
+<br />
+<br />
 
 ### Sorting
 
@@ -95,6 +100,9 @@ These instructions will get you a copy of the project up and running on your loc
 
 ![Sorting example](/Sve-Blazor-DataTable-Examples/Content/SortingExample.gif)
 
+<br />
+<br />
+
 ### Pagination
 
 ```cs
@@ -110,6 +118,9 @@ These instructions will get you a copy of the project up and running on your loc
 ```
 
 ![Paging example](/Sve-Blazor-DataTable-Examples/Content/PagingExample.gif)
+
+<br />
+<br />
 
 ### Filtering
 
@@ -127,6 +138,9 @@ These instructions will get you a copy of the project up and running on your loc
 
 ![Filtering example](/Sve-Blazor-DataTable-Examples/Content/FilteringExample.gif)
 
+<br />
+<br />
+
 ### Header/Grid filters
 
 ```cs
@@ -142,6 +156,9 @@ These instructions will get you a copy of the project up and running on your loc
 ```
 
 ![Header filtering example](/Sve-Blazor-DataTable-Examples/Content/HeaderFilteringExample.gif)
+
+<br />
+<br />
 
 ### Out of the box Virtualization
 
@@ -163,6 +180,9 @@ These instructions will get you a copy of the project up and running on your loc
 ```
 
 ![Virtualization example](/Sve-Blazor-DataTable-Examples/Content/VirtualizationExample.gif)
+
+<br />
+<br />
 
 ### Server side support
 
@@ -208,6 +228,9 @@ public async Task SearchForecastAsync(RequestArgs<WeatherForecast> args)
 
 ![Server side example](/Sve-Blazor-DataTable-Examples/Content/ServerSideExample.gif)
 
+<br />
+<br />
+
 ### Support bootstrap table styles
 
 ```cs
@@ -217,6 +240,9 @@ public async Task SearchForecastAsync(RequestArgs<WeatherForecast> args)
 ```
 
 ![Small table example](/Sve-Blazor-DataTable-Examples/Content/SmallTableExample.PNG)
+<br />
+<br />
+
 
 ```cs
 <DataTable TModel="WeatherForecast" Items="forecasts" Styles="TableStyle.Bordered">
@@ -226,6 +252,9 @@ public async Task SearchForecastAsync(RequestArgs<WeatherForecast> args)
 
 ![Bordered table example](/Sve-Blazor-DataTable-Examples/Content/BorderedTableExample.PNG)
 
+<br />
+<br />
+
 ```cs
 <DataTable TModel="WeatherForecast" Items="forecasts" Styles="TableStyle.Borderless">
 ....
@@ -234,6 +263,9 @@ public async Task SearchForecastAsync(RequestArgs<WeatherForecast> args)
 
 ![Borderless table example](/Sve-Blazor-DataTable-Examples/Content/BorderlessTableExample.PNG)
 
+<br />
+<br />
+
 ```cs
 <DataTable TModel="WeatherForecast" Items="forecasts" Styles="TableStyle.Dark">
 ....
@@ -241,6 +273,9 @@ public async Task SearchForecastAsync(RequestArgs<WeatherForecast> args)
 ```
 
 ![Dark table example](/Sve-Blazor-DataTable-Examples/Content/DarkTableExample.PNG)
+
+<br />
+<br />
 
 
 ```cs
@@ -251,6 +286,9 @@ public async Task SearchForecastAsync(RequestArgs<WeatherForecast> args)
 
 ![Hoverable table example](/Sve-Blazor-DataTable-Examples/Content/HoverableTableExample.PNG)
 
+<br />
+<br />
+
 
 ```cs
 <DataTable TModel="WeatherForecast" Items="forecasts" Styles="TableStyle.Striped">
@@ -259,6 +297,9 @@ public async Task SearchForecastAsync(RequestArgs<WeatherForecast> args)
 ```
 
 ![Striped table example](/Sve-Blazor-DataTable-Examples/Content/StripedTableExample.PNG)
+
+<br />
+<br />
 
 ### Alignment
 
@@ -273,6 +314,9 @@ public async Task SearchForecastAsync(RequestArgs<WeatherForecast> args)
 ```
 
 ![Alignment example](/Sve-Blazor-DataTable-Examples/Content/AlignmentExample.PNG)
+
+<br />
+<br />
 
 ## Built With
 
