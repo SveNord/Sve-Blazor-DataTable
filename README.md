@@ -49,7 +49,7 @@ These instructions will get you a copy of the project up and running on your loc
     <DataTableColumn TModel="WeatherForecast" Property="(e) => e.UpdatedRecently" CustomTitle="Recently updated"/>
 </DataTable>
 ```
-![Basic example](/Sve-Blazor-DataTable-Examples/Content/BasicExample.png)
+![Basic example](/Sve-Blazor-DataTable-Examples/Content/BasicExample)
 
 ### Custom template
 
