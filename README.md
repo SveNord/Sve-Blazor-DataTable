@@ -1,3 +1,4 @@
+- Virtualization 
 # Sve-Blazor-DataTable
 
 Blazor DataTable component with support for client/server side paging, filtering and sorting, build on top of bootstrap 4.
@@ -49,7 +50,7 @@ These instructions will get you a copy of the project up and running on your loc
     <DataTableColumn TModel="WeatherForecast" Property="(e) => e.UpdatedRecently" CustomTitle="Recently updated"/>
 </DataTable>
 ```
-![Basic example](/Sve-Blazor-DataTable-Examples/Content/BasicExample)
+![Basic example](/Sve-Blazor-DataTable-Examples/Content/BasicExample.PNG)
 
 ### Custom template
 
@@ -76,7 +77,7 @@ These instructions will get you a copy of the project up and running on your loc
 </DataTable>
 ```
 
-![Template example](Sve-Blazor-DataTable-Examples/Content/CustomTemplateExample.png)
+![Template example](Sve-Blazor-DataTable-Examples/Content/CustomTemplateExample.PNG)
 
 
 ### Sorting
@@ -216,7 +217,7 @@ public async Task SearchForecastAsync(RequestArgs<WeatherForecast> args)
 </DataTable>
 ```
 
-![Small table example](/Sve-Blazor-DataTable-Examples/Content/SmallTableExample.png)
+![Small table example](/Sve-Blazor-DataTable-Examples/Content/SmallTableExample.PNG)
 
 ```cs
 <DataTable TModel="WeatherForecast" Items="forecasts" Styles="TableStyle.Bordered">
@@ -224,7 +225,7 @@ public async Task SearchForecastAsync(RequestArgs<WeatherForecast> args)
 </DataTable>
 ```
 
-![Bordered table example](/Sve-Blazor-DataTable-Examples/Content/BorderedTableExample.png)
+![Bordered table example](/Sve-Blazor-DataTable-Examples/Content/BorderedTableExample.PNG)
 
 ```cs
 <DataTable TModel="WeatherForecast" Items="forecasts" Styles="TableStyle.Borderless">
@@ -232,7 +233,7 @@ public async Task SearchForecastAsync(RequestArgs<WeatherForecast> args)
 </DataTable>
 ```
 
-![Borderless table example](/Sve-Blazor-DataTable-Examples/Content/BorderlessTableExample.png)
+![Borderless table example](/Sve-Blazor-DataTable-Examples/Content/BorderlessTableExample.PNG)
 
 ```cs
 <DataTable TModel="WeatherForecast" Items="forecasts" Styles="TableStyle.Dark">
@@ -240,7 +241,7 @@ public async Task SearchForecastAsync(RequestArgs<WeatherForecast> args)
 </DataTable>
 ```
 
-![Dark table example](/Sve-Blazor-DataTable-Examples/Content/DarkTableExample.png)
+![Dark table example](/Sve-Blazor-DataTable-Examples/Content/DarkTableExample.PNG)
 
 
 ```cs
@@ -249,7 +250,7 @@ public async Task SearchForecastAsync(RequestArgs<WeatherForecast> args)
 </DataTable>
 ```
 
-![Hoverable table example](/Sve-Blazor-DataTable-Examples/Content/HoverableTableExample.png)
+![Hoverable table example](/Sve-Blazor-DataTable-Examples/Content/HoverableTableExample.PNG)
 
 
 ```cs
@@ -258,7 +259,7 @@ public async Task SearchForecastAsync(RequestArgs<WeatherForecast> args)
 </DataTable>
 ```
 
-![Striped table example](/Sve-Blazor-DataTable-Examples/Content/StripedTableExample.png)
+![Striped table example](/Sve-Blazor-DataTable-Examples/Content/StripedTableExample.PNG)
 
 ### Alignment
 
@@ -272,7 +273,7 @@ public async Task SearchForecastAsync(RequestArgs<WeatherForecast> args)
     </DataTable>
 ```
 
-![Alignment example](/Sve-Blazor-DataTable-Examples/Content/AlignmentExample.png)
+![Alignment example](/Sve-Blazor-DataTable-Examples/Content/AlignmentExample.PNG)
 
 ## Built With
 
