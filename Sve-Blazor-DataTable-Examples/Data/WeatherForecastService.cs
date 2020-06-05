@@ -52,8 +52,10 @@ namespace Sve.Blazor.DataTable.Examples.Data
 
                 pager = new Pager(pageNr: 1, pageSize: 10, sortColumn: "", SortDirection.Ascending);
             }
+            else if (pager == null) pager = new Pager(pageNr: 1, pageSize: 10, sortColumn: "", SortDirection.Ascending); // generatedForecasts isn't cleared when leaving the server side example, so pager could be null
             else pager = args.Pager;
-
+            
+            // This is the important part
             IQueryable<WeatherForecast> result = generatedForecasts.AsQueryable();
 
             if(args != null)

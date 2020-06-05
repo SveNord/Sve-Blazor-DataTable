@@ -11,4 +11,8 @@
     <ProjectReference Include="..\Sve-Blazor-DataTable\Sve-Blazor-DataTable.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Content\" />
+  </ItemGroup>
+
 </Project>
