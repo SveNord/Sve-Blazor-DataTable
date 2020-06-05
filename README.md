@@ -4,10 +4,9 @@ Blazor DataTable component with support for client/server side paging, filtering
 
 ![Main gif](/Sve-Blazor-DataTable-Examples/Content/Main.gif)
  
-## Getting Started 
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
+## Important Notice
+This project is still under active development! Currently an alpha version is available on NuGet, but keep in mind that a later version might contain breaking changes.
 
 
 ### Installation
@@ -35,6 +34,7 @@ These instructions will get you a copy of the project up and running on your loc
     Add `<script src="/_content/Sve.Blazor.DataTable/js/Virtualize.js"></script>` to your _Host.cshtml or your index.html
 
 ## Usage
+
 
 ### Basic table
 
