@@ -35,6 +35,7 @@ This project is still under active development! Currently an alpha version is av
 
 ## Usage
 
+### DataTable properties
 |                  Name                 |                 Type                |       Default      |                                                                                             Description                                                                                             |
 |:-------------------------------------:|:-----------------------------------:|:------------------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
 | Items                                 | IList                               | List               | The list of items to display                                                                                                                                                                        |
