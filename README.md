@@ -49,9 +49,6 @@ This project is still under active development! Currently an alpha version is av
 | CssClass          | string                              | "table"            | The css class for the table tag                                                                                                                                                                     |
 | Styles            | TableStyle [Enum FLAGS]             | null               | The style flags used for the table                                                                                                                                                                  |
 | Attributes        | ReadOnlyDictionary<string, object>? | null               | Any custom attributes for the table tag (see Blazor docs for more info)                                                                                                                             |
-|                   |                                     |                    |                                                                                                                                                                                                     |
-|                   |                                     |                    |                                                                                                                                                                                                     |
-|                   |                                     |                    |                                                                                                                                                                                                     |
 
 ### Basic table
 
