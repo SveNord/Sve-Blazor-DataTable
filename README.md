@@ -6,7 +6,7 @@ Blazor DataTable component with support for client/server side paging, filtering
  
 
 ## Important Notice
-This project is still under active development! Currently an alpha version is available on NuGet, but keep in mind that a later version might contain breaking changes. Make sure to always check the [Changelog](CHANGELOG) for more information.
+This project is still under active development! Currently an alpha version is available on NuGet, but keep in mind that a later version might contain breaking changes. Make sure to always check the [Changelog](CHANGELOG.md) for more information.
 
 
 ### Installation
