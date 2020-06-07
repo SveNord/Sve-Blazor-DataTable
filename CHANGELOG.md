@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [1.0.4-alpha] - 2020-06-07
+### Added
+- A callback for when a row is clicked
+- Selectable rows
+
 ## [1.0.3-alpha] - 2020-06-07
 ### Fixed
 - Fixed an issue where FetchData was called before the Columns were initialized
