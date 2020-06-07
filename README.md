@@ -4,10 +4,9 @@ Blazor DataTable component with support for client/server side paging, filtering
 
 ![Main gif](/Sve-Blazor-DataTable-Examples/Content/Main.gif)
  
-## Getting Started 
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
+## Important Notice
+This project is still under active development! Currently an alpha version is available on NuGet, but keep in mind that a later version might contain breaking changes. Make sure to always check the [Changelog](CHANGELOG.md) for more information.
 
 
 ### Installation
@@ -36,6 +35,48 @@ These instructions will get you a copy of the project up and running on your loc
 
 ## Usage
 
+### DataTable properties
+|                  Name                 |                 Type                |       Default      |                                                                                             Description                                                                                             |
+|:-------------------------------------:|:-----------------------------------:|:------------------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| Items                                 | IList                               | List               | The list of items to display                                                                                                                                                                        |
+| UsePaging                             | bool                                | false              | Boolean indicating whether to use paging or not                                                                                                                                                     |
+| PageNr                                | int                                 | 1                  | The number of the current page (only applicable when property UsePaging is true)                                                                                                                    |
+| PageSize                              | int                                 | 10                 | The amount of items shown on a page (only applicable when property UsePaging is true)                                                                                                               |
+| PageCount                             | int                                 | 1                  | The total amount of pages (only applicable when property UsePaging is true)                                                                                                                         |
+| FetchData                             | Func<RequestArgs, Task>?            | null               | The method used for fetching and manipulating data (paging, filtering, sorting) on the server. When this method is null, all these actions will be performed on the initial dataset on the client. |
+| ShowHeaderFilters                     | bool                                | true               | Indicates whether or not to show the header/grid filters                                                                                                                                            |
+| Id                                    | string                              | ""                 | The html identifier of the table tag                                                                                                                                                                |
+| ContainerCssClass                     | string                              | "table-responsive" | The css class for the container/parent tag of the table                                                                                                                                             |
+| CssClass                              | string                              | "table"            | The css class for the table tag                                                                                                                                                                     |
+| Styles                                | TableStyle [Enum FLAGS]             | null               | The style flags used for the table                                                                                                                                                                  |
+| Attributes                            | ReadOnlyDictionary<string, object>? | null               | Any custom attributes for the table tag (see Blazor docs for more info)                                                                                                                             |
+| ContainerHeight                       | int                                 | 300                | The height of the table container in pixels                                                                                                                                                         |
+| IncludeSearchButton                   | bool                                | false              | Indicates whether or not to include a search icon. When clicked filters, sorting and paging is performed on the server is FetchData has a value otherwise it happens on the client                  |
+| IncludeToggleFilters                  | bool                                | false              | Indicates whether or not to include a toggle icon. When clicked header/grid filters will re or disappear (only applicable when property                                                             |
+| SearchOnApplyHeaderFilter             | bool                                | false              | Indicates whether or not a search is instantly triggered when a header/grid filter is applied                                                                                                       |
+| AutoAddFilterWhenClickedAndNoneActive | bool                                | true               | Indicates whether or not to add an empty filter rule when a filterable column is clicked an no other filter rules exist.                                                                            |
+### DataTableColumn properties
+|                  Name                 |                 Type                |       Default      |                                                                                             Description                                                                                             |
+|:-------------------------------------:|:-----------------------------------:|:------------------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| Items                                 | IList                               | List               | The list of items to display                                                                                                                                                                        |
+| UsePaging                             | bool                                | false              | Boolean indicating whether to use paging or not                                                                                                                                                     |
+| PageNr                                | int                                 | 1                  | The number of the current page (only applicable when property UsePaging is true)                                                                                                                    |
+| PageSize                              | int                                 | 10                 | The amount of items shown on a page (only applicable when property UsePaging is true)                                                                                                               |
+| PageCount                             | int                                 | 1                  | The total amount of pages (only applicable when property UsePaging is true)                                                                                                                         |
+| FetchData                             | Func<RequestArgs, Task>?            | null               | The method used for fetching and manipulating data (paging, filtering, sorting) on the server. When this method is null, all these actions will be performed on the initial data set on the client. |
+| ShowHeaderFilters                     | bool                                | true               | Indicates whether or not to show the header/grid filters                                                                                                                                            |
+| Id                                    | string                              | ""                 | The html identifier of the table tag                                                                                                                                                                |
+| ContainerCssClass                     | string                              | "table-responsive" | The css class for the container/parent tag of the table                                                                                                                                             |
+| CssClass                              | string                              | "table"            | The css class for the table tag                                                                                                                                                                     |
+| Styles                                | TableStyle [Enum FLAGS]             | null               | The style flags used for the table                                                                                                                                                                  |
+| Attributes                            | ReadOnlyDictionary<string, object>? | null               | Any custom attributes for the table tag (see Blazor docs for more info)                                                                                                                             |
+| ContainerHeight                       | int                                 | 300                | The height of the table container in pixels                                                                                                                                                         |
+| IncludeSearchButton                   | bool                                | false              | Indicates whether or not to include a search icon. When clicked filters, sorting and paging is performed on the server is FetchData has a value otherwise it happens on the client                  |
+| IncludeToggleFilters                  | bool                                | false              | Indicates whether or not to include a toggle icon. When clicked header/grid filters will re or disappear (only applicable when property                                                             |
+| SearchOnApplyHeaderFilter             | bool                                | false              | Indicates whether or not a search is instantly triggered when a header/grid filter is applied                                                                                                       |
+| AutoAddFilterWhenClickedAndNoneActive | bool                                | true               | Indicates whether or not to add an empty filter rule when a filterable column is clicked an no other filter rules exist.                                                                            |
+
+
 ### Basic table
 
 ```cs
@@ -50,6 +91,9 @@ These instructions will get you a copy of the project up and running on your loc
 </DataTable>
 ```
 ![Basic example](/Sve-Blazor-DataTable-Examples/Content/BasicExample.PNG)
+
+<br />
+<br />
 
 ### Custom template
 
@@ -78,6 +122,8 @@ These instructions will get you a copy of the project up and running on your loc
 
 ![Template example](Sve-Blazor-DataTable-Examples/Content/CustomTemplateExample.PNG)
 
+<br />
+<br />
 
 ### Sorting
 
@@ -95,6 +141,9 @@ These instructions will get you a copy of the project up and running on your loc
 
 ![Sorting example](/Sve-Blazor-DataTable-Examples/Content/SortingExample.gif)
 
+<br />
+<br />
+
 ### Pagination
 
 ```cs
@@ -110,6 +159,9 @@ These instructions will get you a copy of the project up and running on your loc
 ```
 
 ![Paging example](/Sve-Blazor-DataTable-Examples/Content/PagingExample.gif)
+
+<br />
+<br />
 
 ### Filtering
 
@@ -127,6 +179,9 @@ These instructions will get you a copy of the project up and running on your loc
 
 ![Filtering example](/Sve-Blazor-DataTable-Examples/Content/FilteringExample.gif)
 
+<br />
+<br />
+
 ### Header/Grid filters
 
 ```cs
@@ -142,6 +197,9 @@ These instructions will get you a copy of the project up and running on your loc
 ```
 
 ![Header filtering example](/Sve-Blazor-DataTable-Examples/Content/HeaderFilteringExample.gif)
+
+<br />
+<br />
 
 ### Out of the box Virtualization
 
@@ -163,6 +221,9 @@ These instructions will get you a copy of the project up and running on your loc
 ```
 
 ![Virtualization example](/Sve-Blazor-DataTable-Examples/Content/VirtualizationExample.gif)
+
+<br />
+<br />
 
 ### Server side support
 
@@ -208,6 +269,9 @@ public async Task SearchForecastAsync(RequestArgs<WeatherForecast> args)
 
 ![Server side example](/Sve-Blazor-DataTable-Examples/Content/ServerSideExample.gif)
 
+<br />
+<br />
+
 ### Support bootstrap table styles
 
 ```cs
@@ -217,6 +281,9 @@ public async Task SearchForecastAsync(RequestArgs<WeatherForecast> args)
 ```
 
 ![Small table example](/Sve-Blazor-DataTable-Examples/Content/SmallTableExample.PNG)
+<br />
+<br />
+
 
 ```cs
 <DataTable TModel="WeatherForecast" Items="forecasts" Styles="TableStyle.Bordered">
@@ -226,6 +293,9 @@ public async Task SearchForecastAsync(RequestArgs<WeatherForecast> args)
 
 ![Bordered table example](/Sve-Blazor-DataTable-Examples/Content/BorderedTableExample.PNG)
 
+<br />
+<br />
+
 ```cs
 <DataTable TModel="WeatherForecast" Items="forecasts" Styles="TableStyle.Borderless">
 ....
@@ -234,6 +304,9 @@ public async Task SearchForecastAsync(RequestArgs<WeatherForecast> args)
 
 ![Borderless table example](/Sve-Blazor-DataTable-Examples/Content/BorderlessTableExample.PNG)
 
+<br />
+<br />
+
 ```cs
 <DataTable TModel="WeatherForecast" Items="forecasts" Styles="TableStyle.Dark">
 ....
@@ -241,6 +314,9 @@ public async Task SearchForecastAsync(RequestArgs<WeatherForecast> args)
 ```
 
 ![Dark table example](/Sve-Blazor-DataTable-Examples/Content/DarkTableExample.PNG)
+
+<br />
+<br />
 
 
 ```cs
@@ -251,6 +327,9 @@ public async Task SearchForecastAsync(RequestArgs<WeatherForecast> args)
 
 ![Hoverable table example](/Sve-Blazor-DataTable-Examples/Content/HoverableTableExample.PNG)
 
+<br />
+<br />
+
 
 ```cs
 <DataTable TModel="WeatherForecast" Items="forecasts" Styles="TableStyle.Striped">
@@ -259,6 +338,9 @@ public async Task SearchForecastAsync(RequestArgs<WeatherForecast> args)
 ```
 
 ![Striped table example](/Sve-Blazor-DataTable-Examples/Content/StripedTableExample.PNG)
+
+<br />
+<br />
 
 ### Alignment
 
@@ -269,37 +351,14 @@ public async Task SearchForecastAsync(RequestArgs<WeatherForecast> args)
     <DataTableColumn TModel="WeatherForecast" TextAlignment="Core.Models.TextAlignment.Left" IsSortable="true" Property="(e) => e.TemperatureF" CustomTitle="Fahrenheit"/>
     <DataTableColumn TModel="WeatherForecast" TextAlignment="Core.Models.TextAlignment.Right" IsSortable="true" Property="(e) => e.MyNullableInt"/>
     <DataTableColumn TModel="WeatherForecast" TextAlignment="Core.Models.TextAlignment.Start" IsSortable="true" Property="(e) => e.Summary"/>
-    </DataTable>
+</DataTable>
 ```
 
 ![Alignment example](/Sve-Blazor-DataTable-Examples/Content/AlignmentExample.PNG)
 
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
-## Authors
-
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+<br />
+<br />
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
