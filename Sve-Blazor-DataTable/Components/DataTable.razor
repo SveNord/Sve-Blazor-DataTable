@@ -260,15 +260,15 @@
         if (Items == null) Items = new List<TModel>();
 
         AllItems = Items;
-
-        if (FetchData != null && (AllItems.Count == 0)) await FetchData.Invoke(new RequestArgs<TModel>(PageNr, PageSize, SortDirection, SortColumn, FilterRules));
-        else if (UsePaging && FetchData == null) await PerformClientSideDataManipulations();
     }
 
-    protected override void OnAfterRender(bool firstRender)
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
+            if (FetchData != null && (AllItems.Count == 0) && Columns.Count > 0) await FetchData.Invoke(new RequestArgs<TModel>(PageNr, PageSize, SortDirection, SortColumn, FilterRules));
+            else if (UsePaging && FetchData == null) await PerformClientSideDataManipulations();
+
             foreach (DataTableColumn<TModel> column in Columns.Where(e => e.IsFilterable))
             {
                 if (column.CustomTitle != null) FilterableColumnProperties.Add(column.Guid, column.CustomTitle);
