@@ -45,7 +45,7 @@ namespace Sve.Blazor.DataTable.Components
             FilterValue = valueChangedEventArgs.Value;
         }
 
-        public Expression<Func<TModel, bool>> GenerateExpression() => FilterType.GenerateExpression<TModel>(Column.GetColumnVisualPropertyName(), FilterValue);
+        public Expression<Func<TModel, bool>> GenerateExpression() => FilterType.GenerateExpression<TModel>(Column.GetColumnPropertyName(), FilterValue);
 
         private void UpdatePropertyType(Type propertyType)
         {

@@ -75,7 +75,8 @@
                                 <DataTableFilterInput TModel="TModel"
                                                       IsHeaderRule="true"
                                                       FilterRule="HeaderFilterRules.Single(e => e.Column.Guid == column.Guid)"
-                                                      ApplyFilter="ApplyFilter" />
+                                                      ApplyFilter="ApplyFilter" 
+                                                      UnApplyFilter="UnApplyFilter"/>
                             </div>
                         }
                     </th>
@@ -270,7 +271,8 @@
         {
             foreach (DataTableColumn<TModel> column in Columns.Where(e => e.IsFilterable))
             {
-                FilterableColumnProperties.Add(column.Guid, column.GetColumnVisualPropertyName());
+                if (column.CustomTitle != null) FilterableColumnProperties.Add(column.Guid, column.CustomTitle);
+                else FilterableColumnProperties.Add(column.Guid, column.GetColumnVisualPropertyName());
                 if (column.IncludeHeaderFilter) HeaderFilterRules.Add(new FilterRule<TModel>(column, column.PropertyType, column.GetColumnVisualPropertyName(), ObjectFilter.Equals)); //TODO: Support multiple grid filter types in the future?
             }
             StateHasChanged();
@@ -388,7 +390,7 @@
         else await FetchData.Invoke(new RequestArgs<TModel>(PageNr, PageSize, SortDirection, SortColumn, FilterRules.Concat(HeaderFilterRules.Where(e => e.IsApplied)).ToList()));
     }
 
-    public async Task ApplyFilter(Guid filterRuleGiud, bool isHeaderRule = false)
+    private async Task ApplyFilter(Guid filterRuleGiud, bool isHeaderRule = false)
     {
         if (isHeaderRule)
         {
@@ -396,6 +398,18 @@
             if (SearchOnApplyHeaderFilter) await ApplyFilters();
         }
         else FilterRules.Single(e => e.Guid == filterRuleGiud).IsApplied = true;
+
+        PageNr = 1;
+    }
+
+    private  async Task UnApplyFilter(Guid filterRuleGiud, bool isHeaderRule = false)
+    {
+        if (isHeaderRule)
+        {
+            HeaderFilterRules.Single(e => e.Guid == filterRuleGiud).IsApplied = false;
+            if (SearchOnApplyHeaderFilter) await ApplyFilters();
+        }
+        else FilterRules.Single(e => e.Guid == filterRuleGiud).IsApplied = false;
 
         PageNr = 1;
     }

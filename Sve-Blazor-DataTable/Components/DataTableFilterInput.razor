@@ -12,7 +12,7 @@
                    IsApplied="@FilterRule.IsApplied"
                    AppliedText="@FilterRule.FilterValue.ToString()"
                    ApplyFilterEvent="(e) => ApplyFilter(FilterRule.Guid, true)"
-                   UnApplyFilterEvent="(e) => FilterRule.IsApplied = false" />
+                   UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)" />
     }
     else
     {
@@ -26,7 +26,7 @@
                              IsApplied="@FilterRule.IsApplied"
                              AppliedText="@FilterRule.FilterValue!.ToString()"
                              ApplyFilterEvent="(e) => ApplyFilter(FilterRule.Guid, true)"
-                             UnApplyFilterEvent="(e) => FilterRule.IsApplied = false" />
+                             UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)" />
                 break;
             case TypeCode.Int32:
                 <NumberInput TNumber="int"
@@ -36,7 +36,7 @@
                              IsApplied="@FilterRule.IsApplied"
                              AppliedText="@FilterRule.FilterValue!.ToString()"
                              ApplyFilterEvent="(e) => ApplyFilter(FilterRule.Guid, true)"
-                             UnApplyFilterEvent="(e) => FilterRule.IsApplied = false" />
+                             UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)" />
                 break;
             case TypeCode.Int64:
                 <NumberInput TNumber="long"
@@ -46,7 +46,7 @@
                              IsApplied="@FilterRule.IsApplied"
                              AppliedText="@FilterRule.FilterValue!.ToString()"
                              ApplyFilterEvent="(e) => ApplyFilter(FilterRule.Guid, true)"
-                             UnApplyFilterEvent="(e) => FilterRule.IsApplied = false" />
+                             UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)" />
                 break;
             case TypeCode.UInt16:
                 <NumberInput TNumber="ushort"
@@ -56,7 +56,7 @@
                              IsApplied="@FilterRule.IsApplied"
                              AppliedText="@FilterRule.FilterValue!.ToString()"
                              ApplyFilterEvent="(e) => ApplyFilter(FilterRule.Guid, true)"
-                             UnApplyFilterEvent="(e) => FilterRule.IsApplied = false" />
+                             UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)" />
                 break;
             case TypeCode.UInt32:
                 <NumberInput TNumber="uint"
@@ -66,7 +66,7 @@
                              IsApplied="@FilterRule.IsApplied"
                              AppliedText="@FilterRule.FilterValue!.ToString()"
                              ApplyFilterEvent="(e) => ApplyFilter(FilterRule.Guid, true)"
-                             UnApplyFilterEvent="(e) => FilterRule.IsApplied = false" />
+                             UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)" />
                 break;
             case TypeCode.UInt64:
                 <NumberInput TNumber="ulong"
@@ -76,7 +76,7 @@
                              IsApplied="@FilterRule.IsApplied"
                              AppliedText="@FilterRule.FilterValue!.ToString()"
                              ApplyFilterEvent="(e) => ApplyFilter(FilterRule.Guid, true)"
-                             UnApplyFilterEvent="(e) => FilterRule.IsApplied = false" />
+                             UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)" />
                 break;
             case TypeCode.Double:
                 <FloatingPointInput TFloatingPoint="double"
@@ -86,7 +86,7 @@
                                     IsApplied="@FilterRule.IsApplied"
                                     AppliedText="@FilterRule.FilterValue!.ToString()"
                                     ApplyFilterEvent="(e) => ApplyFilter(FilterRule.Guid, true)"
-                                    UnApplyFilterEvent="(e) => FilterRule.IsApplied = false" />
+                                    UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)" />
                 break;
             case TypeCode.Decimal:
                 <FloatingPointInput TFloatingPoint="decimal"
@@ -96,7 +96,7 @@
                                     IsApplied="@FilterRule.IsApplied"
                                     AppliedText="@FilterRule.FilterValue!.ToString()"
                                     ApplyFilterEvent="(e) => ApplyFilter(FilterRule.Guid, true)"
-                                    UnApplyFilterEvent="(e) => FilterRule.IsApplied = false" />
+                                    UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)" />
                 break;
             case TypeCode.Boolean:
                 <BooleanInput Value="@FilterRule.FilterValue"
@@ -105,7 +105,7 @@
                               IsApplied="@FilterRule.IsApplied"
                               AppliedText="@FilterRule.FilterValue!.ToString()"
                               ApplyFilterEvent="(e) => ApplyFilter(FilterRule.Guid, true)"
-                              UnApplyFilterEvent="(e) => FilterRule.IsApplied = false" />
+                              UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)" />
                 break;
             case TypeCode.String:
                 <StringInput Value="@FilterRule.FilterValue"
@@ -114,7 +114,7 @@
                              IsApplied="@FilterRule.IsApplied"
                              AppliedText="@FilterRule.FilterValue!.ToString()"
                              ApplyFilterEvent="(e) => ApplyFilter(FilterRule.Guid, true)"
-                             UnApplyFilterEvent="(e) => FilterRule.IsApplied = false" />
+                             UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)" />
                 break;
             case TypeCode.DateTime:
                 <DateTimeInput Value="@FilterRule.FilterValue"
@@ -123,7 +123,7 @@
                                IsApplied="@FilterRule.IsApplied"
                                AppliedText="@FilterRule.FilterValue!.ToString()"
                                ApplyFilterEvent="(e) => ApplyFilter(FilterRule.Guid, true)"
-                               UnApplyFilterEvent="(e) => FilterRule.IsApplied = false" />
+                               UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)" />
                 break;
 
             // TODO: Might be possible
@@ -203,4 +203,7 @@ else
 
     [Parameter]
     public Func<Guid, bool, Task> ApplyFilter { get; set; }
+
+    [Parameter]
+    public Func<Guid, bool, Task> UnApplyFilter { get; set; }
 }
