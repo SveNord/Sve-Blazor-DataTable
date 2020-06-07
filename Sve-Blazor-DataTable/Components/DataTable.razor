@@ -89,7 +89,7 @@
                 <tbody>
                     @foreach (var item in Items)
                     {
-                        <tr>
+                        <tr id="@item.GetHashCode()" class='@(AllowRowSelection && item.Equals(SelectedItem) ? SelectedItemCssClass : "")' @onclick="(args) => OnRowClickedEvent(args, item)">
                             @foreach (DataTableColumn<TModel> column in Columns)
                             {
                                 if (column.Template != null)
@@ -118,7 +118,7 @@
             else
             {
                 <Virtualize TModel="TModel" TagName="tbody" ItemHeight="@GetItemHeight()" Items="Items" Context="item">
-                    <tr id="@item.GetHashCode()" style="height: 25px;">
+                    <tr id="@item.GetHashCode()" class='@(AllowRowSelection && item.Equals(SelectedItem) ? SelectedItemCssClass : "")' @onclick="(args) => OnRowClickedEvent(args, item)" style="height: 25px;">
 
                         @foreach (DataTableColumn<TModel> column in Columns)
                         {
@@ -226,6 +226,19 @@
     /// </summary>
     [Parameter]
     public bool AutoAddFilterWhenClickedAndNoneActive { get; set; } = true;
+
+    [Parameter]
+    public bool AllowRowSelection { get; set; } = false;
+
+    [Parameter]
+    public EventCallback<TModel> RowClickedEvent { get; set; }
+
+    [Parameter]
+    public TModel SelectedItem { get; set; }
+
+    [Parameter]
+    public string SelectedItemCssClass { get; set; } = "bg-info";
+
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -336,6 +349,7 @@
         }
         else await FetchData.Invoke(new RequestArgs<TModel>(PageNr, PageSize, SortDirection, SortColumn, FilterRules));
 
+        StateHasChanged();
     }
 
     private async Task OnGoToPageEvent(int pageNr)
@@ -343,6 +357,7 @@
         PageNr = pageNr;
         if (FetchData == null) await PerformClientSideDataManipulations();
         else await FetchData.Invoke(new RequestArgs<TModel>(PageNr, PageSize, SortDirection, SortColumn, FilterRules));
+        StateHasChanged();
     }
 
     private void OnColumnFilterClickedEvent(MouseEventArgs clickEvent, DataTableColumn<TModel> column)
@@ -388,6 +403,8 @@
 
         if (FetchData == null) await PerformClientSideDataManipulations();
         else await FetchData.Invoke(new RequestArgs<TModel>(PageNr, PageSize, SortDirection, SortColumn, FilterRules.Concat(HeaderFilterRules.Where(e => e.IsApplied)).ToList()));
+
+        StateHasChanged();
     }
 
     private async Task ApplyFilter(Guid filterRuleGiud, bool isHeaderRule = false)
@@ -451,5 +468,12 @@
         StateHasChanged();
 
         return Task.CompletedTask;
+    }
+
+    private async Task OnRowClickedEvent(MouseEventArgs args, TModel item)
+    {
+        SelectedItem = item;
+        await RowClickedEvent.InvokeAsync(item);
+        StateHasChanged();
     }
 }
