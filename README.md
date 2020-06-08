@@ -60,8 +60,8 @@ This project is still under active development! Currently an alpha version is av
 | SearchOnApplyHeaderFilter             | bool                                | false              | Indicates whether or not a search is instantly triggered when a header/grid filter is applied                                                                                                      |
 | AutoAddFilterWhenClickedAndNoneActive | bool                                | true               | Indicates whether or not to add an empty filter rule when a filterable column is clicked an no other filter rules exist.                                                                           |
 ### DataTableColumn properties
-|                  Name                 |                 Type                |          Default         |                                                                                     Description                                                                                    |   |
-|:-------------------------------------:|:-----------------------------------:|:------------------------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|---|
+| Name                                  | Type                                | Default                  | Description                                                                                                                                                                        |   |
+|---------------------------------------|-------------------------------------|--------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---|
 | Property                              | Expression<Func<TModel, object>>?   | null                     | The selector of a field/property of TModel to use for the column                                                                                                                   |   |
 | IsSortable                            | bool                                | false                    | Indicates whether or not sorting is enabled for this column                                                                                                                        |   |
 | IsFilterable                          | bool                                | false                    | Indicates whether or not filtering is enabled for this column                                                                                                                      |   |
@@ -82,7 +82,6 @@ This project is still under active development! Currently an alpha version is av
 | SearchOnApplyHeaderFilter             | bool                                | false                    | Indicates whether or not a search is instantly triggered when a header/grid filter is applied                                                                                      |   |
 | AutoAddFilterWhenClickedAndNoneActive | bool                                | true                     | Indicates whether or not to add an empty filter rule when a filterable column is clicked an no other filter rules exist.                                                           |   |
 | Template                              | RenderFragment<TModel>?             | null                     | The custom render fragment to use for the column                                                                                                                                   |   |
-
 
 ### Basic table
 
