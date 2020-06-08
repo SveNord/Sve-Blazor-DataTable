@@ -25,7 +25,7 @@ This project is still under active development! Currently an alpha version is av
 
 2. Import the components:
 
-   Add the following using statement `@using Sve.Blazor.DataTable` to one of the following: 
+   Add the following using statement `@using Sve.Blazor.DataTable.Components` to one of the following: 
    - For global import add it to your  `_Imports.razor` file
    - For a scoped import add  it to your desired Blazor component
 
