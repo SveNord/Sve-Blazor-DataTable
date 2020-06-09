@@ -29,7 +29,7 @@ namespace Sve.Blazor.DataTable.Components
             Column = column;
             FilterType = objectFilter;
             PropertyName = propertyName;
-            
+
             UpdatePropertyType(propertyType);
         }
 
@@ -63,14 +63,28 @@ namespace Sve.Blazor.DataTable.Components
                 switch (Type.GetTypeCode(propertyType))
                 {
                     case TypeCode.Int16:
+                        FilterValue = default(System.Int16);
+                        break;
                     case TypeCode.Int32:
+                        FilterValue = default(System.Int32);
+                        break;
                     case TypeCode.Int64:
+                        FilterValue = default(System.Int64);
+                        break;
                     case TypeCode.UInt16:
+                        FilterValue = default(System.UInt16);
+                        break;
                     case TypeCode.UInt32:
+                        FilterValue = default(System.UInt32);
+                        break;
                     case TypeCode.UInt64:
+                        FilterValue = default(System.UInt64);
+                        break;
                     case TypeCode.Double:
+                        FilterValue = default(System.Double);
+                        break;
                     case TypeCode.Decimal:
-                        FilterValue = 0;
+                        FilterValue = default(System.Decimal);
                         break;
                     case TypeCode.Boolean:
                         FilterValue = false;

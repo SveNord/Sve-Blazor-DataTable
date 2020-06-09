@@ -1,6 +1,6 @@
 ﻿@typeparam TModel
 
-<div class="modal fade" id="advancedFilterModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+<div class="modal fade" id="@ModalId" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
     <div class="modal-dialog mw-100 w-75" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -74,7 +74,12 @@
                                         <DataTableFilterInput TModel="TModel"
                                                               IsHeaderRule="false"
                                                               FilterRule="filterRule"
-                                                              ApplyFilter="ApplyFilter" />
+                                                              ApplyFilter="ApplyFilter"
+                                                              UnApplyFilter="UnApplyFilter"
+                                                              Attributes="filterRule.Column.HeaderFilterAttributes"
+                                                              ApplyButtonCssClass="@ApplyButtonCssClass"
+                                                              InputCssClass="@InputCssClass"
+                                                              DateTimeFormat="filterRule.Column.DateTimeFormat" />
                                     }
 
                                     <button type="button" class="btn" @onclick="(e) => ApplyFilter(filterRule.Guid, false)">
@@ -106,6 +111,18 @@
 </div>
 
 @code {
+    [Parameter]
+    public string ModalId { get; set; }
+
+    [Parameter]
+    public string ApplyButtonCssClass { get; set; }
+
+    [Parameter]
+    public string InputCssClass { get; set; } = "";
+
+    [Parameter]
+    public Func<Guid, bool, Task> UnApplyFilter { get; set; }
+
     [Parameter]
     public IList<FilterRule<TModel>> FilterRules { get; set; }
 

@@ -1,4 +1,6 @@
-﻿@typeparam TModel
+﻿@using System.Collections;
+
+@typeparam TModel
 
 @if (IsHeaderRule)
 {
@@ -8,11 +10,14 @@
         <EnumInput Value="@FilterRule.FilterValue"
                    EnumValues="@enumValues"
                    OnValueChangedEvent="@FilterRule.UpdateFilterValue"
-                   IncludeApply="true"
+                   IncludeApply="IncludeApply()"
                    IsApplied="@FilterRule.IsApplied"
                    AppliedText="@FilterRule.FilterValue.ToString()"
                    ApplyFilterEvent="(e) => ApplyFilter(FilterRule.Guid, true)"
-                   UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)" />
+                   UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)"
+                   Attributes="Attributes"
+                   ApplyButtonCssClass="@ApplyButtonCssClass"
+                   InputCssClass="@InputCssClass" />
     }
     else
     {
@@ -22,108 +27,157 @@
                 <NumberInput TNumber="short"
                              Value="@FilterRule.FilterValue"
                              OnValueChangedEvent="@FilterRule.UpdateFilterValue"
-                             IncludeApply="true"
+                             IncludeApply="IncludeApply()"
                              IsApplied="@FilterRule.IsApplied"
                              AppliedText="@FilterRule.FilterValue!.ToString()"
                              ApplyFilterEvent="(e) => ApplyFilter(FilterRule.Guid, true)"
-                             UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)" />
+                             UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)"
+                             Attributes="Attributes"
+                             ApplyButtonCssClass="@ApplyButtonCssClass"
+                             InputCssClass="@InputCssClass" />
                 break;
             case TypeCode.Int32:
                 <NumberInput TNumber="int"
                              Value="@FilterRule.FilterValue"
                              OnValueChangedEvent="@FilterRule.UpdateFilterValue"
-                             IncludeApply="true"
+                             IncludeApply="IncludeApply()"
                              IsApplied="@FilterRule.IsApplied"
                              AppliedText="@FilterRule.FilterValue!.ToString()"
                              ApplyFilterEvent="(e) => ApplyFilter(FilterRule.Guid, true)"
-                             UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)" />
+                             UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)"
+                             Attributes="Attributes"
+                             ApplyButtonCssClass="@ApplyButtonCssClass"
+                             InputCssClass="@InputCssClass" />
                 break;
             case TypeCode.Int64:
                 <NumberInput TNumber="long"
                              Value="@FilterRule.FilterValue"
                              OnValueChangedEvent="@FilterRule.UpdateFilterValue"
-                             IncludeApply="true"
+                             IncludeApply="IncludeApply()"
                              IsApplied="@FilterRule.IsApplied"
                              AppliedText="@FilterRule.FilterValue!.ToString()"
                              ApplyFilterEvent="(e) => ApplyFilter(FilterRule.Guid, true)"
-                             UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)" />
+                             UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)"
+                             Attributes="Attributes"
+                             ApplyButtonCssClass="@ApplyButtonCssClass"
+                             InputCssClass="@InputCssClass" />
                 break;
             case TypeCode.UInt16:
                 <NumberInput TNumber="ushort"
                              Value="@FilterRule.FilterValue"
                              OnValueChangedEvent="@FilterRule.UpdateFilterValue"
-                             IncludeApply="true"
+                             IncludeApply="IncludeApply()"
                              IsApplied="@FilterRule.IsApplied"
                              AppliedText="@FilterRule.FilterValue!.ToString()"
                              ApplyFilterEvent="(e) => ApplyFilter(FilterRule.Guid, true)"
-                             UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)" />
+                             UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)"
+                             ApplyButtonCssClass="@ApplyButtonCssClass"
+                             InputCssClass="@InputCssClass" />
                 break;
             case TypeCode.UInt32:
                 <NumberInput TNumber="uint"
                              Value="@FilterRule.FilterValue"
                              OnValueChangedEvent="@FilterRule.UpdateFilterValue"
-                             IncludeApply="true"
+                             IncludeApply="IncludeApply()"
                              IsApplied="@FilterRule.IsApplied"
                              AppliedText="@FilterRule.FilterValue!.ToString()"
                              ApplyFilterEvent="(e) => ApplyFilter(FilterRule.Guid, true)"
-                             UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)" />
+                             UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)"
+                             Attributes="Attributes"
+                             ApplyButtonCssClass="@ApplyButtonCssClass"
+                             InputCssClass="@InputCssClass" />
                 break;
             case TypeCode.UInt64:
                 <NumberInput TNumber="ulong"
                              Value="@FilterRule.FilterValue"
                              OnValueChangedEvent="@FilterRule.UpdateFilterValue"
-                             IncludeApply="true"
+                             IncludeApply="IncludeApply()"
                              IsApplied="@FilterRule.IsApplied"
                              AppliedText="@FilterRule.FilterValue!.ToString()"
                              ApplyFilterEvent="(e) => ApplyFilter(FilterRule.Guid, true)"
-                             UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)" />
+                             UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)"
+                             Attributes="Attributes"
+                             ApplyButtonCssClass="@ApplyButtonCssClass"
+                             InputCssClass="@InputCssClass" />
                 break;
             case TypeCode.Double:
                 <FloatingPointInput TFloatingPoint="double"
                                     Value="@FilterRule.FilterValue"
                                     OnValueChangedEvent="@FilterRule.UpdateFilterValue"
-                                    IncludeApply="true"
+                                    IncludeApply="IncludeApply()"
                                     IsApplied="@FilterRule.IsApplied"
                                     AppliedText="@FilterRule.FilterValue!.ToString()"
                                     ApplyFilterEvent="(e) => ApplyFilter(FilterRule.Guid, true)"
-                                    UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)" />
+                                    UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)"
+                                    Attributes="Attributes"
+                                    ApplyButtonCssClass="@ApplyButtonCssClass"
+                                    InputCssClass="@InputCssClass" />
                 break;
             case TypeCode.Decimal:
                 <FloatingPointInput TFloatingPoint="decimal"
                                     Value="@FilterRule.FilterValue"
                                     OnValueChangedEvent="@FilterRule.UpdateFilterValue"
-                                    IncludeApply="true"
+                                    IncludeApply="IncludeApply()"
                                     IsApplied="@FilterRule.IsApplied"
                                     AppliedText="@FilterRule.FilterValue!.ToString()"
                                     ApplyFilterEvent="(e) => ApplyFilter(FilterRule.Guid, true)"
-                                    UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)" />
+                                    UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)"
+                                    Attributes="Attributes"
+                                    ApplyButtonCssClass="@ApplyButtonCssClass"
+                                    InputCssClass="@InputCssClass" />
                 break;
             case TypeCode.Boolean:
                 <BooleanInput Value="@FilterRule.FilterValue"
                               OnValueChangedEvent="@FilterRule.UpdateFilterValue"
-                              IncludeApply="true"
+                              IncludeApply="IncludeApply()"
                               IsApplied="@FilterRule.IsApplied"
                               AppliedText="@FilterRule.FilterValue!.ToString()"
                               ApplyFilterEvent="(e) => ApplyFilter(FilterRule.Guid, true)"
-                              UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)" />
+                              UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)"
+                              Attributes="Attributes"
+                              ApplyButtonCssClass="@ApplyButtonCssClass"
+                              InputCssClass="@InputCssClass" />
                 break;
             case TypeCode.String:
                 <StringInput Value="@FilterRule.FilterValue"
                              OnValueChangedEvent="@FilterRule.UpdateFilterValue"
-                             IncludeApply="true"
+                             IncludeApply="IncludeApply()"
                              IsApplied="@FilterRule.IsApplied"
                              AppliedText="@FilterRule.FilterValue!.ToString()"
                              ApplyFilterEvent="(e) => ApplyFilter(FilterRule.Guid, true)"
-                             UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)" />
+                             UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)"
+                             Attributes="Attributes"
+                             ApplyButtonCssClass="@ApplyButtonCssClass"
+                             InputCssClass="@InputCssClass" />
                 break;
             case TypeCode.DateTime:
-                <DateTimeInput Value="@FilterRule.FilterValue"
+                @if (DateTimeFormat == DateTimeFormat.Date)
+                {
+                    <DateInput Value="@FilterRule.FilterValue"
                                OnValueChangedEvent="@FilterRule.UpdateFilterValue"
-                               IncludeApply="true"
+                               IncludeApply="IncludeApply()"
                                IsApplied="@FilterRule.IsApplied"
                                AppliedText="@FilterRule.FilterValue!.ToString()"
                                ApplyFilterEvent="(e) => ApplyFilter(FilterRule.Guid, true)"
-                               UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)" />
+                               UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)"
+                               Attributes="Attributes"
+                               ApplyButtonCssClass="@ApplyButtonCssClass"
+                               InputCssClass="@InputCssClass" />
+                }
+                else
+                {
+                    <DateTimeInput Value="@FilterRule.FilterValue"
+                                   OnValueChangedEvent="@FilterRule.UpdateFilterValue"
+                                   IncludeApply="IncludeApply()"
+                                   IsApplied="@FilterRule.IsApplied"
+                                   AppliedText="@FilterRule.FilterValue!.ToString()"
+                                   ApplyFilterEvent="(e) => ApplyFilter(FilterRule.Guid, true)"
+                                   UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)"
+                                   Attributes="Attributes"
+                                   ApplyButtonCssClass="@ApplyButtonCssClass"
+                                   InputCssClass="@InputCssClass"
+                                   DateTimeFormat="DateTimeFormat" />
+                }
                 break;
 
             // TODO: Might be possible
@@ -202,8 +256,28 @@ else
     public bool IsHeaderRule { get; set; }
 
     [Parameter]
+    public Dictionary<string, object>? Attributes { get; set; }
+
+    [Parameter]
+    public string ApplyButtonCssClass { get; set; }
+
+    [Parameter]
+    public string InputCssClass { get; set; } = "";
+
+    [Parameter]
+    public DateTimeFormat DateTimeFormat { get; set; } = DateTimeFormat.Date;
+
+    [Parameter]
     public Func<Guid, bool, Task> ApplyFilter { get; set; }
 
     [Parameter]
     public Func<Guid, bool, Task> UnApplyFilter { get; set; }
+
+    private bool IncludeApply()
+    {
+        if (Attributes == null || Attributes.Count == 0) return true;
+
+        if (Attributes.ContainsKey("disabled")) return false;
+        else return true;
+    }
 }

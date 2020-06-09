@@ -1,4 +1,5 @@
 ﻿@using System.Linq.Expressions;
+@using System.Collections;
 
 @typeparam TModel
 
@@ -22,9 +23,6 @@
     public bool IsFilterable { get; set; } = false;
 
     [Parameter]
-    public bool IncludeHeaderFilter { get; set; } = false;
-
-    [Parameter]
     public string? CustomTitle { get; set; }
 
     [Parameter]
@@ -39,8 +37,25 @@
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    /// <summary>
+    /// Template with the param being the name of the column
+    /// </summary>
     [Parameter]
-    public RenderFragment<TModel>? Template { get; set; }
+    public RenderFragment<string> HeaderTemplate { get; set; }
+
+    [Parameter]
+    public RenderFragment<TModel>? RowTemplate { get; set; }
+    [Parameter]
+    public Dictionary<string, object>? HeaderFilterAttributes { get; set; }
+
+    [Parameter]
+    public bool IsHeaderVisible { get; set; } = true;
+
+    [Parameter]
+    public DateTimeFormat DateTimeFormat { get; set; } = DateTimeFormat.Date;
+
+    [Parameter]
+    public int MaxWidth { get; set; } = 100;
 
     public Guid Guid { get; set; }
 
