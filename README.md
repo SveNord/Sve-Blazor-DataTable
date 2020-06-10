@@ -215,40 +215,210 @@ This project is still under active development! Currently an alpha version is av
 </tbody>
 </table>
 ### DataTableColumn properties
-| Name                                  | Type                        | Default              | Description                                                                                                                                                                                        |
-|---------------------------------------|-----------------------------|----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Property                              | Expression<Func<TModel, object>>? | null                     | The selector of a field/property of TModel to use for the column                                                                                                                   |
-| IsSortable                            | bool                              | false                    | Indicates whether or not sorting is enabled for this column                                                                                                                        |
-| IsFilterable                          | bool                              | false                    | Indicates whether or not filtering is enabled for this column                                                                                                                      |
-| CustomTitle                           | string                            | null                     | The name of the column header (by default the name of the property is used)                                                                                                        |
-| HeaderFilterType                      | ObjectFilter                      | Depends on PropertyType  | The type of filter to use in a grid filter. By default string properties have a Contains filter, other types have Equal filters by default                                         |
-| HeaderTemplate                        | RenderFragment                    | null                     | The template to use for the grid header, the string is the name of the column                                                                                                      |
-| Id                                    | string                            | ""                       | The html identifier of the table tag                                                                                                                                               |
-| ContainerCssClass                     | string                            | "table-responsive"       | The css class for the container/parent tag of the table                                                                                                                            |
-| CssClass                              | string                            | "table"                  | The css class for the table tag                                                                                                                                                    |
-| IsDefaultSortColumn                   | bool                              | false                    | Indicates whether or not this column is sorted on by default                                                                                                                       |
-| DefaultSortDirection                  | SortDirection [Enum]              | SortDirection.Ascending  | The sort direction of the default sorting column                                                                                                                                   |
-| TextAlignment                         | TextAlignment [Enum]              | TextAlignment.Left       | The text alignment for the column                                                                                                                                                  |
-| VerticalAlignment                     | VerticalAlignment [Enum]          | VerticalAlignment.Bottom | The vertical alignment for the column                                                                                                                                              |
-| Styles                                | TableStyle [Enum FLAGS]           | null                     | The style flags used for the table                                                                                                                                                 |
-| Attributes                            | Dictionary<string, object>?       | null                     | Any custom attributes for the table tag (see Blazor docs for more info)                                                                                                            |
-| HeaderFilterAttributes                | Dictionary<string, object>?       | null                     | Any custom attributes for the header inputs                                                                                                                                        |
-| ContainerHeight                       | int                               | 300                      | The height of the table container in pixels                                                                                                                                        |
-| IncludeSearchButton                   | bool                              | false                    | Indicates whether or not to include a search icon. When clicked filters, sorting and paging is performed on the server is FetchData has a value otherwise it happens on the client |
-| IncludeToggleFilters                  | bool                              | false                    | Indicates whether or not to include a toggle icon. When clicked header/grid filters will re or disappear (only applicable when property                                            |
-| SearchOnApplyHeaderFilter             | bool                              | false                    | Indicates whether or not a search is instantly triggered when a header/grid filter is applied                                                                                      |
-| AutoAddFilterWhenClickedAndNoneActive | bool                              | true                     | Indicates whether or not to add an empty filter rule when a filterable column is clicked an no other filter rules exist.                                                           |
-| RowTemplate                           | RenderFragment?                   | null                     | The custom render fragment to use for the column                                                                                                                                   |
-| RowAttributes                         | Dictionary<string, object>?       | null                     | Any custom attributes for the rows (see Blazor docs for more info)                                                                                                                 |
-| ContainerHeight                       | int                               | 300                      | The height of the table container in pixels                                                                                                                                        |
-| MaxWidth                              | int                               | 100                      | The max width in pixels of a column                                                                                                                                                |
-| DateTimeFormat                        | DateTimeFormat                    | DateTimeFormat.Date      | The DateTimeFormat to use in header/grid filters                                                                                                                                   |
-| IsHeaderVisible                       | bool                              | true                     | Indicates whether the column is visible or not                                                                                                                                     |
-| IncludeAdvancedFilters                | bool                              | false                    | Indicates whether to allow advanced filtering or not                                                                                                                               |
-| IncludeSearchButton                   | bool                              | false                    | Indicates whether or not to include a search icon. When clicked filters, sorting and paging is performed on the server is FetchData has a value otherwise it happens on the client |
-| IncludeToggleFilters                  | bool                              | false                    | Indicates whether or not to include a toggle icon. When clicked header/grid filters will re or disappear (only applicable when property                                            |
-| SearchOnApplyHeaderFilter             | bool                              | false                    | Indicates whether or not a search is instantly triggered when a header/grid filter is applied                                                                                      |
-| AutoAddFilterWhenClickedAndNoneActive | bool                              | true                     | Indicates whether or not to add an empty filter rule when a filterable column is clicked an no other filter rules exist.                                                           |
+<table style="width: 1006px;">
+<thead>
+<tr>
+<th style="width: 10px;">Name</th>
+<th style="width: 420px;">Type</th>
+<th style="width: 180px;">Default</th>
+<th style="width: 380px;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="width: 10px;">Property</td>
+<td style="width: 420px;">Expression&lt;Func&lt;TModel, object&gt;&gt;?</td>
+<td style="width: 180px;">null</td>
+<td style="width: 380px;">The selector of a field/property of TModel to use for the column</td>
+</tr>
+<tr>
+<td style="width: 10px;">IsSortable</td>
+<td style="width: 420px;">bool</td>
+<td style="width: 180px;">false</td>
+<td style="width: 380px;">Indicates whether or not sorting is enabled for this column</td>
+</tr>
+<tr>
+<td style="width: 10px;">IsFilterable</td>
+<td style="width: 420px;">bool</td>
+<td style="width: 180px;">false</td>
+<td style="width: 380px;">Indicates whether or not filtering is enabled for this column</td>
+</tr>
+<tr>
+<td style="width: 10px;">CustomTitle</td>
+<td style="width: 420px;">string</td>
+<td style="width: 180px;">null</td>
+<td style="width: 380px;">The name of the column header (by default the name of the property is used)</td>
+</tr>
+<tr>
+<td style="width: 10px;">HeaderTemplate</td>
+<td style="width: 420px;">RenderFragment&lt;string&gt;</td>
+<td style="width: 180px;">null</td>
+<td style="width: 380px;">The template to use for the grid header, the string is the name of the column</td>
+</tr>
+<tr>
+<td style="width: 10px;">Id</td>
+<td style="width: 420px;">string</td>
+<td style="width: 180px;">""</td>
+<td style="width: 380px;">The html identifier of the table tag</td>
+</tr>
+<tr>
+<td style="width: 10px;">ContainerCssClass</td>
+<td style="width: 420px;">string</td>
+<td style="width: 180px;">"table-responsive"</td>
+<td style="width: 380px;">The css class for the container/parent tag of the table</td>
+</tr>
+<tr>
+<td style="width: 10px;">CssClass</td>
+<td style="width: 420px;">string</td>
+<td style="width: 180px;">"table"</td>
+<td style="width: 380px;">The css class for the table tag</td>
+</tr>
+<tr>
+<td style="width: 10px;">IsDefaultSortColumn</td>
+<td style="width: 420px;">bool</td>
+<td style="width: 180px;">false</td>
+<td style="width: 380px;">Indicates whether or not this column is sorted on by default</td>
+</tr>
+<tr>
+<td style="width: 10px;">DefaultSortDirection</td>
+<td style="width: 420px;">SortDirection [Enum]</td>
+<td style="width: 180px;">SortDirection.Ascending</td>
+<td style="width: 380px;">The sort direction of the default sorting column</td>
+</tr>
+<tr>
+<td style="width: 10px;">TextAlignment</td>
+<td style="width: 420px;">TextAlignment [Enum]</td>
+<td style="width: 180px;">TextAlignment.Left</td>
+<td style="width: 380px;">The text alignment for the column</td>
+</tr>
+<tr>
+<td style="width: 10px;">VerticalAlignment</td>
+<td style="width: 420px;">VerticalAlignment [Enum]</td>
+<td style="width: 180px;">VerticalAlignment.Bottom</td>
+<td style="width: 380px;">The vertical alignment for the column</td>
+</tr>
+<tr>
+<td style="width: 10px;">Styles</td>
+<td style="width: 420px;">TableStyle [Enum FLAGS]</td>
+<td style="width: 180px;">null</td>
+<td style="width: 380px;">The style flags used for the table</td>
+</tr>
+<tr>
+<td style="width: 10px;">Attributes</td>
+<td style="width: 420px;">Dictionary&lt;string, object&gt;?</td>
+<td style="width: 180px;">null</td>
+<td style="width: 380px;">Any custom attributes for the table tag (see Blazor docs for more info)</td>
+</tr>
+<tr>
+<td style="width: 10px;">HeaderFilterAttributes</td>
+<td style="width: 420px;">Dictionary&lt;string, object&gt;?</td>
+<td style="width: 180px;">null</td>
+<td style="width: 380px;">Any custom attributes for the header inputs</td>
+</tr>
+<tr>
+<td style="width: 10px;">ContainerHeight</td>
+<td style="width: 420px;">int</td>
+<td style="width: 180px;">300</td>
+<td style="width: 380px;">The height of the table container in pixels</td>
+</tr>
+<tr>
+<td style="width: 10px;">IncludeHeaderFilter</td>
+<td style="width: 420px;">bool</td>
+<td style="width: 180px;">false</td>
+<td style="width: 380px;">Indicates whether or not to add header/grid filters</td>
+</tr>
+<tr>
+<td style="width: 10px;">IncludeSearchButton</td>
+<td style="width: 420px;">bool</td>
+<td style="width: 180px;">false</td>
+<td style="width: 380px;">Indicates whether or not to include a search icon. When clicked filters, sorting and paging is performed on the server is FetchData has a value otherwise it happens on the client</td>
+</tr>
+<tr>
+<td style="width: 10px;">IncludeToggleFilters</td>
+<td style="width: 420px;">bool</td>
+<td style="width: 180px;">false</td>
+<td style="width: 380px;">Indicates whether or not to include a toggle icon. When clicked header/grid filters will re or disappear (only applicable when property</td>
+</tr>
+<tr>
+<td style="width: 10px;">SearchOnApplyHeaderFilter</td>
+<td style="width: 420px;">bool</td>
+<td style="width: 180px;">false</td>
+<td style="width: 380px;">Indicates whether or not a search is instantly triggered when a header/grid filter is applied</td>
+</tr>
+<tr>
+<td style="width: 10px;">AutoAddFilterWhenClickedAndNoneActive</td>
+<td style="width: 420px;">bool</td>
+<td style="width: 180px;">true</td>
+<td style="width: 380px;">Indicates whether or not to add an empty filter rule when a filterable column is clicked an no other filter rules exist.</td>
+</tr>
+<tr>
+<td style="width: 10px;">RowTemplate</td>
+<td style="width: 420px;">RenderFragment?</td>
+<td style="width: 180px;">null</td>
+<td style="width: 380px;">The custom render fragment to use for the column</td>
+</tr>
+<tr>
+<td style="width: 10px;">RowAttributes</td>
+<td style="width: 420px;">Dictionary&lt;string, object&gt;?</td>
+<td style="width: 180px;">null</td>
+<td style="width: 380px;">Any custom attributes for the rows (see Blazor docs for more info)</td>
+</tr>
+<tr>
+<td style="width: 10px;">ContainerHeight</td>
+<td style="width: 420px;">int</td>
+<td style="width: 180px;">300</td>
+<td style="width: 380px;">The height of the table container in pixels</td>
+</tr>
+<tr>
+<td style="width: 10px;">MaxWidth</td>
+<td style="width: 420px;">int</td>
+<td style="width: 180px;">100</td>
+<td style="width: 380px;">The max width in pixels of a column</td>
+</tr>
+<tr>
+<td style="width: 10px;">DateTimeFormat</td>
+<td style="width: 420px;">DateTimeFormat</td>
+<td style="width: 180px;">DateTimeFormat.Date</td>
+<td style="width: 380px;">The DateTimeFormat to use in header/grid filters</td>
+</tr>
+<tr>
+<td style="width: 10px;">IsHeaderVisible</td>
+<td style="width: 420px;">bool</td>
+<td style="width: 180px;">true</td>
+<td style="width: 380px;">Indicates whether the column is visible or not</td>
+</tr>
+<tr>
+<td style="width: 10px;">IncludeAdvancedFilters</td>
+<td style="width: 420px;">bool</td>
+<td style="width: 180px;">false</td>
+<td style="width: 380px;">Indicates whether to allow advanced filtering or not</td>
+</tr>
+<tr>
+<td style="width: 10px;">IncludeSearchButton</td>
+<td style="width: 420px;">bool</td>
+<td style="width: 180px;">false</td>
+<td style="width: 380px;">Indicates whether or not to include a search icon. When clicked filters, sorting and paging is performed on the server is FetchData has a value otherwise it happens on the client</td>
+</tr>
+<tr>
+<td style="width: 10px;">IncludeToggleFilters</td>
+<td style="width: 420px;">bool</td>
+<td style="width: 180px;">false</td>
+<td style="width: 380px;">Indicates whether or not to include a toggle icon. When clicked header/grid filters will re or disappear (only applicable when property</td>
+</tr>
+<tr>
+<td style="width: 10px;">SearchOnApplyHeaderFilter</td>
+<td style="width: 420px;">bool</td>
+<td style="width: 180px;">false</td>
+<td style="width: 380px;">Indicates whether or not a search is instantly triggered when a header/grid filter is applied</td>
+</tr>
+<tr>
+<td style="width: 10px;">AutoAddFilterWhenClickedAndNoneActive</td>
+<td style="width: 420px;">bool</td>
+<td style="width: 180px;">true</td>
+<td style="width: 380px;">Indicates whether or not to add an empty filter rule when a filterable column is clicked an no other filter rules exist.</td>
+</tr>
+</tbody>
+</table>
 
 ### Basic table
 
