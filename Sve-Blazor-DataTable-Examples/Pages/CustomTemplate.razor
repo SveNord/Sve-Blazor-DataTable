@@ -18,7 +18,7 @@ else
         <DataTableColumn TModel="WeatherForecast" Property="(e) => e.Summary" />
         <DataTableColumn TModel="WeatherForecast" Property="(e) => e.Country" />
         <DataTableColumn TModel="WeatherForecast" Property="(e) => e.UpdatedRecently" CustomTitle="Recently updated">
-            <Template Context="forecast">
+            <RowTemplate Context="forecast">
                 @if (forecast.UpdatedRecently)
                 {
                     <i class="fas fa-check-circle" style="color: green;"></i>
@@ -27,7 +27,7 @@ else
                 {
             <i class="far fa-times-circle" style="color: red;"></i>
                 }
-            </Template>
+            </RowTemplate>
         </DataTableColumn>
     </DataTable>
 }

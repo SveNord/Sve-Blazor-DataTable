@@ -13,9 +13,9 @@ else
 {
     <DataTable TModel="WeatherForecast" Items="forecasts">
         <DataTableColumn TModel="WeatherForecast">
-            <Template Context="forecast">
+            <RowTemplate Context="forecast">
                 @(Array.IndexOf(forecasts, forecast) + 1)
-            </Template>
+            </RowTemplate>
         </DataTableColumn>
         <DataTableColumn TModel="WeatherForecast" IsSortable="true" IsFilterable="true" Property="(e) => e.Date"/>
         <DataTableColumn TModel="WeatherForecast" IsSortable="true" IsFilterable="true" Property="(e) => e.TemperatureC" CustomTitle="Celsius"   />
