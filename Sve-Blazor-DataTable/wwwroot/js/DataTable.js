@@ -41,3 +41,11 @@ function readClientRectWithoutTransform(elem) {
     const translateY = parseFloat(elem.getAttribute('data-translateY'));
     return { top: rect.top - translateY, bottom: rect.bottom - translateY, left: rect.left, right: rect.right, height: rect.height, width: rect.width };
 }
+
+function openModal(identifier) {
+    $(`#${identifier}`).modal('show');
+}
+
+function closeModal(identifier) {
+    $(`#${identifier}`).modal('hide');
+}

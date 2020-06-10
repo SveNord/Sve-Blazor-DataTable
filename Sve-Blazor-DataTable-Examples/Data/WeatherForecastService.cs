@@ -52,19 +52,13 @@ namespace Sve.Blazor.DataTable.Examples.Data
 
                 pager = new Pager(pageNr: 1, pageSize: 10, sortColumn: "", SortDirection.Ascending);
             }
-            else if (pager == null) pager = new Pager(pageNr: 1, pageSize: 10, sortColumn: "", SortDirection.Ascending); // generatedForecasts isn't cleared when leaving the server side example, so pager could be null
+            else if (args == null && pager == null) pager = new Pager(pageNr: 1, pageSize: 10, sortColumn: "", SortDirection.Ascending); // generatedForecasts isn't cleared when leaving the server side example, so pager could be null
             else pager = args.Pager;
             
             // This is the important part
             IQueryable<WeatherForecast> result = generatedForecasts.AsQueryable();
 
-            if(args != null)
-            {
-                foreach (var filter in args.AppliedFilters)
-                {
-                    result = result.Where(filter.GenerateExpression());
-                }
-            }
+            if(args != null) result = result.Where(args.GetFilterExpression());
 
             pagedResult = Sve.Blazor.Core.Utils.ApplyPaging(result, pager);
 

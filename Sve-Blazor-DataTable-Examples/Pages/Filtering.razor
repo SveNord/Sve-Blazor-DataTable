@@ -2,7 +2,7 @@
 
 @inject WeatherForecastService ForecastService
 
-<h1>Filtering example</h1>
+<h1>Advanced filtering example</h1>
 
 @if (forecasts == null)
 {
@@ -10,7 +10,7 @@
 }
 else
 {
-    <DataTable TModel="WeatherForecast" Items="forecasts">
+    <DataTable TModel="WeatherForecast" Items="forecasts" IncludeAdvancedFilters="true">
         <DataTableColumn TModel="WeatherForecast" IsFilterable="true" Property="(e) => e.Date"/>
         <DataTableColumn TModel="WeatherForecast" IsFilterable="true" Property="(e) => e.TemperatureC" CustomTitle="Celsius"   />
         <DataTableColumn TModel="WeatherForecast" IsFilterable="true" Property="(e) => e.TemperatureF" CustomTitle="Fahrenheit"/>

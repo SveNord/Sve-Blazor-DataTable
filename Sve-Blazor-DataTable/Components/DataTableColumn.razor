@@ -57,6 +57,22 @@
     [Parameter]
     public int MaxWidth { get; set; } = 100;
 
+    [Parameter]
+    public ObjectFilter HeaderFilterType
+    {
+        get
+        {
+            if (objectFilter != null) return objectFilter;
+            if (Type.GetTypeCode(PropertyType) == TypeCode.String) return ObjectFilter.Contains;
+            else return ObjectFilter.Equals;
+        }
+        set
+        {
+            objectFilter = value;
+        }
+    }
+    private ObjectFilter? objectFilter;
+
     public Guid Guid { get; set; }
 
     public Type PropertyType

@@ -5,7 +5,8 @@ using System.Linq.Expressions;
 
 namespace Sve.Blazor.DataTable.Components
 {
-    public class FilterRule<TModel>
+    public class
+        FilterRule<TModel>
     {
         public Guid Guid { get; private set; }
 
@@ -45,7 +46,27 @@ namespace Sve.Blazor.DataTable.Components
             FilterValue = valueChangedEventArgs.Value;
         }
 
-        public Expression<Func<TModel, bool>> GenerateExpression() => FilterType.GenerateExpression<TModel>(Column.GetColumnPropertyName(), FilterValue);
+        public Expression<Func<TModel, bool>> GenerateExpression()
+        {
+            if (Type.GetTypeCode(ExpectedValueType) == TypeCode.DateTime)
+            {
+                if (Column.DateTimeFormat == DateTimeFormat.Date) return FilterType.GenerateExpression<TModel>($"{Column.GetColumnPropertyName()}.Date", FilterValue.Date);
+                else if (Column.DateTimeFormat == DateTimeFormat.DateHourMinute)
+                {
+                    var dateExpression = FilterType.GenerateExpression<TModel>($"{Column.GetColumnPropertyName()}.Date", FilterValue.Date);
+                    var hourExpression = FilterType.GenerateExpression<TModel>($"{Column.GetColumnPropertyName()}.Hour", FilterValue.Hour);
+                    var minuteExpression = FilterType.GenerateExpression<TModel>($"{Column.GetColumnPropertyName()}.Minute", FilterValue.Minute);
+                    var p1 = PredicateBuilder.And(dateExpression, hourExpression);
+                    return PredicateBuilder.And(p1, minuteExpression);
+                }
+                else if (Column.DateTimeFormat == DateTimeFormat.DateHourMinuteSecond)
+                {
+                    return FilterType.GenerateExpression<TModel>(Column.GetColumnPropertyName(), FilterValue);
+                }
+            }
+
+            return FilterType.GenerateExpression<TModel>(Column.GetColumnPropertyName(), FilterValue);
+        }
 
         private void UpdatePropertyType(Type propertyType)
         {
@@ -109,7 +130,11 @@ namespace Sve.Blazor.DataTable.Components
 
         public string GetAppliedFilterRuleText()
         {
-            if (FilterType.ValueRequired) return $"{PropertyName}\t{FilterType.ToString()}\t{FilterValue}";
+            if (FilterType.ValueRequired)
+            {
+                if (Type.GetTypeCode(ExpectedValueType) == TypeCode.DateTime) return $"{PropertyName}\t{FilterType.ToString()}\t{FilterValue!.ToString(Column.DateTimeFormat.Format)}";
+                else return $"{PropertyName}\t{FilterType.ToString()}\t{FilterValue}";
+            }
             else return $"{PropertyName}\t{FilterType.ToString()}";
         }
     }

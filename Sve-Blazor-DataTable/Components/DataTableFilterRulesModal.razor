@@ -19,7 +19,7 @@
                             {
                                 <div class="input-group col-10">
                                     <div class="badge badge-pill badge-light d-inline-block col-10 text-left d-flex">
-                                        <span class="col-8 pr-2 text-truncate d-inline-block align-middle" style="line-height: 3.5; white-space: pre;">@filterRule.GetAppliedFilterRuleText()</span>
+                                        <span class="col-8 pr-2 text-truncate d-inline-block align-middle" style="line-height: 3.5; white-space: pre;">@(filterRule.Column.CustomTitle == null ? filterRule.GetAppliedFilterRuleText() : filterRule.Column.CustomTitle)</span>
 
                                         <div class="btn-group col-2 ml-auto">
                                             <button type="button" class="close col-1" aria-label="Close" @onclick="(e) => RemoveFilterRule(filterRule.Guid)">
@@ -36,7 +36,7 @@
                             else
                             {
                                 <div class="input-group col-lg-4 col-md-4 col-sm-12">
-                                    <select class="custom-select" @onchange="(args) => SelectedPropertyForFilterRuleChanged(args, filterRule)">
+                                    <select class="custom-select custom-select-sm" @onchange="(args) => SelectedPropertyForFilterRuleChanged(args, filterRule)">
                                         @foreach (var filterableColumnProperty in FilterableColumnProperties)
                                         {
                                             @if (filterRule.Column.Guid == filterableColumnProperty.Key)
@@ -52,7 +52,7 @@
                                 </div>
 
                                 <div class="input-group col-lg-3 col-md-3 col-sm-12">
-                                    <select class="custom-select" @onchange="(e) => filterRule.FilterType = ObjectFilter.FromDisplayName<ObjectFilter>(e.Value.ToString())">
+                                    <select class="custom-select custom-select-sm" @onchange="(e) => filterRule.FilterType = ObjectFilter.FromDisplayName<ObjectFilter>(e.Value.ToString())">
                                         @foreach (ObjectFilter objectFilter in ObjectFilter.GetAll<ObjectFilter>().ToList().Where(e => e.AllowsType(filterRule.ExpectedValueType) && (!filterRule.IsNullable ? e.IsNonNullableAllowed : true)))
                                         {
                                             @if (filterRule.FilterType.Id == objectFilter.Id)
@@ -70,7 +70,6 @@
                                 <div class="input-group col-lg-4 col-md-4 col-sm-12">
                                     @if (filterRule.FilterType.ValueRequired)
                                     {
-
                                         <DataTableFilterInput TModel="TModel"
                                                               IsHeaderRule="false"
                                                               FilterRule="filterRule"

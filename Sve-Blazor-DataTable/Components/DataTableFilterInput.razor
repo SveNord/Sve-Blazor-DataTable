@@ -157,7 +157,7 @@
                                OnValueChangedEvent="@FilterRule.UpdateFilterValue"
                                IncludeApply="IncludeApply()"
                                IsApplied="@FilterRule.IsApplied"
-                               AppliedText="@FilterRule.FilterValue!.ToString()"
+                               AppliedText="@FilterRule.FilterValue!.ToString(DateTimeFormat.Format)"
                                ApplyFilterEvent="(e) => ApplyFilter(FilterRule.Guid, true)"
                                UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)"
                                Attributes="Attributes"
@@ -170,7 +170,7 @@
                                    OnValueChangedEvent="@FilterRule.UpdateFilterValue"
                                    IncludeApply="IncludeApply()"
                                    IsApplied="@FilterRule.IsApplied"
-                                   AppliedText="@FilterRule.FilterValue!.ToString()"
+                                   AppliedText="@FilterRule.FilterValue!.ToString(DateTimeFormat.Format)"
                                    ApplyFilterEvent="(e) => ApplyFilter(FilterRule.Guid, true)"
                                    UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)"
                                    Attributes="Attributes"
@@ -233,7 +233,14 @@ else
                 <StringInput Value="@FilterRule.FilterValue" OnValueChangedEvent="@FilterRule.UpdateFilterValue" />
                 break;
             case TypeCode.DateTime:
-                <DateTimeInput Value="@FilterRule.FilterValue" OnValueChangedEvent="@FilterRule.UpdateFilterValue" />
+                @if (DateTimeFormat == DateTimeFormat.Date)
+                {
+                    <DateInput Value="@FilterRule.FilterValue" OnValueChangedEvent="@FilterRule.UpdateFilterValue" />
+                }
+                else
+                {
+                    <DateTimeInput Value="@FilterRule.FilterValue" OnValueChangedEvent="@FilterRule.UpdateFilterValue" DateTimeFormat="DateTimeFormat" />
+                }
                 break;
 
             // TODO: Might be possible

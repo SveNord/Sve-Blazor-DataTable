@@ -2,7 +2,7 @@
 
 @inject WeatherForecastService ForecastService
 
-<h1>Custom row template example</h1>
+<h1>Custom row and header template example</h1>
 
 @if (forecasts == null)
 {
@@ -18,6 +18,9 @@ else
         <DataTableColumn TModel="WeatherForecast" Property="(e) => e.Summary" />
         <DataTableColumn TModel="WeatherForecast" Property="(e) => e.Country" />
         <DataTableColumn TModel="WeatherForecast" Property="(e) => e.UpdatedRecently" CustomTitle="Recently updated">
+            <HeaderTemplate Context="title">
+                @title <i class="fas fa-check-circle" style="color: green;"></i> <i class="far fa-times-circle" style="color: red;"></i>
+            </HeaderTemplate>
             <RowTemplate Context="forecast">
                 @if (forecast.UpdatedRecently)
                 {

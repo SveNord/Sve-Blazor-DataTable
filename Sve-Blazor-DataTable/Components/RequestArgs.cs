@@ -1,5 +1,7 @@
 ﻿using Sve.Blazor.Core.Models;
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace Sve.Blazor.DataTable.Components
 {
@@ -27,6 +29,18 @@ namespace Sve.Blazor.DataTable.Components
         {
             Pager = pager;
             AppliedFilters = appliedFilters;
+        }
+
+        public Expression<Func<TModel, bool>> GetFilterExpression()
+        {
+            Expression<Func<TModel, bool>> filterExpression = (e) => true;
+
+            foreach (var filterRule in AppliedFilters)
+            {
+                filterExpression = PredicateBuilder.And(filterExpression, filterRule.GenerateExpression());
+            }
+
+            return filterExpression;
         }
     }
 }
