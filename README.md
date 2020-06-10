@@ -214,7 +214,9 @@ This project is still under active development! Currently an alpha version is av
 </tr>
 </tbody>
 </table>
+
 ### DataTableColumn properties
+
 <table style="width: 1006px;">
 <thead>
 <tr>
