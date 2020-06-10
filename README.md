@@ -31,7 +31,7 @@ This project is still under active development! Currently an alpha version is av
 
 3. Reference js interop file:
     
-    Add `<script src="/_content/Sve.Blazor.DataTable/js/Virtualize.js"></script>` to your _Host.cshtml or your index.html
+    Add `<script src="/_content/Sve.Blazor.DataTable/js/DataTable.js"></script>` to your _Host.cshtml or your index.html
 
 ## Usage
 
