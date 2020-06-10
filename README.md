@@ -36,36 +36,184 @@ This project is still under active development! Currently an alpha version is av
 ## Usage
 
 ### DataTable properties
-| Name                                  | Type                        | Default              | Description                                                                                                                                                                                        |
-|---------------------------------------|-----------------------------|----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Items                                 | IList                       | List                 | The list of items to display                                                                                                                                                                       |
-| UsePaging                             | bool                        | false                | Boolean indicating whether to use paging or not                                                                                                                                                    |
-| PageNr                                | int                         | 1                    | The number of the current page (only applicable when property UsePaging is true)                                                                                                                   |
-| PageSize                              | int                         | 10                   | The amount of items shown on a page (only applicable when property UsePaging is true)                                                                                                              |
-| PageCount                             | int                         | 1                    | The total amount of pages (only applicable when property UsePaging is true)                                                                                                                        |
-| FetchData                             | Func<RequestArgs, Task>?    | null                 | The method used for fetching and manipulating data (paging, filtering, sorting) on the server. When this method is null, all these actions will be performed on the initial dataset on the client. |
-| ShowHeaderFilters                     | bool                        | true                 | Indicates whether or not to show the header/grid filters                                                                                                                                           |
-| AllowRowSelection                     | bool                        | false                | Indicates whether or not it's possible to select a row                                                                                                                                             |
-| RowClickedEvent                       | EventCallback               | null                 | The callback for when a row is clicked (only applicable when property AllowRowSelection is true)                                                                                                   |
-| SelectedItem                          | TModel                      | null                 | The selected item                                                                                                                                                                                  |
-| SelectedItemCssClass                  | string                      | bg-info              | The css class for the selected row                                                                                                                                                                 |
-| EmptyGridText                         | string                      | "No records to show" | The text to show when the Items list is empty                                                                                                                                                      |
-| IsLoading                             | bool                        | false                | Indicates whether or not data is being fetched, used to show a spinner                                                                                                                             |
-| Id                                    | string                      | ""                   | The html identifier of the table tag                                                                                                                                                               |
-| ContainerCssClass                     | string                      | "table-responsive"   | The css class for the container/parent tag of the table                                                                                                                                            |
-| CssClass                              | string                      | "table"              | The css class for the table tag                                                                                                                                                                    |
-| ApplyButtonCssClass                   | string                      | ""                   | The css class for the "apply" buttons on grid/header filters                                                                                                                                       |
-| InputCssClass                         | string                      | ""                   | The css class for the input tags in the grid/header filters                                                                                                                                        |
-| Styles                                | TableStyle [Enum FLAGS]     | null                 | The style flags used for the table                                                                                                                                                                 |
-| TableAttributes                       | Dictionary<string, object>? | null                 | Any custom attributes for the table tag (see Blazor docs for more info)                                                                                                                            |
-| RowAttributes                         | Dictionary<string, object>? | null                 | Any custom attributes for the rows (see Blazor docs for more info)                                                                                                                                 |
-| ContainerHeight                       | int                         | 300                  | The height of the table container in pixels                                                                                                                                                        |
-| IncludeAdvancedFilters                | bool                        | true                 | Indicates whether to allow advanced filtering or not                                                                                                                                               |
-| IncludeHeaderFilters                  | bool                        | false                | Indicates whether or not to include grid/header filters                                                                                                                                            |
-| IncludeSearchButton                   | bool                        | false                | Indicates whether or not to include a search icon. When clicked filters, sorting and paging is performed on the server is FetchData has a value otherwise it happens on the client                 |
-| IncludeToggleFilters                  | bool                        | false                | Indicates whether or not to include a toggle icon. When clicked header/grid filters will re or disappear (only applicable when property                                                            |
-| SearchOnApplyHeaderFilter             | bool                        | true                 | Indicates whether or not a search is instantly triggered when a header/grid filter is applied                                                                                                      |
-| AutoAddFilterWhenClickedAndNoneActive | bool                        | true                 | Indicates whether or not to add an empty filter rule when a filterable column is clicked an no other filter rules exist.                                                                           |
+<table style="width: 1005px;">
+<tbody>
+<tr>
+<td style="width: 271px;"><strong>Name</strong></td>
+<td style="width: 198px;"><strong>Type</strong></td>
+<td style="width: 14px;"><strong>Default</strong></td>
+<td style="width: 521px;"><strong>Description</strong></td>
+</tr>
+<tr>
+<td style="width: 271px;">Items</td>
+<td style="width: 198px;">IList</td>
+<td style="width: 14px;">List</td>
+<td style="width: 521px;">The list of items to display</td>
+</tr>
+<tr>
+<td style="width: 271px;">UsePaging</td>
+<td style="width: 198px;">bool</td>
+<td style="width: 14px;">false</td>
+<td style="width: 521px;">Boolean indicating whether to use paging or not</td>
+</tr>
+<tr>
+<td style="width: 271px;">PageNr</td>
+<td style="width: 198px;">int</td>
+<td style="width: 14px;">1</td>
+<td style="width: 521px;">The number of the current page (only applicable when property UsePaging is true)</td>
+</tr>
+<tr>
+<td style="width: 271px;">PageSize</td>
+<td style="width: 198px;">int</td>
+<td style="width: 14px;">10</td>
+<td style="width: 521px;">The amount of items shown on a page (only applicable when property UsePaging is true)</td>
+</tr>
+<tr>
+<td style="width: 271px;">PageCount</td>
+<td style="width: 198px;">int</td>
+<td style="width: 14px;">1</td>
+<td style="width: 521px;">The total amount of pages (only applicable when property UsePaging is true)</td>
+</tr>
+<tr>
+<td style="width: 271px;">FetchData</td>
+<td style="width: 198px;">Func&lt;RequestArgs, Task&gt;?</td>
+<td style="width: 14px;">null</td>
+<td style="width: 521px;">The method used for fetching and manipulating data (paging, filtering, sorting) on the server. When this method is null, all these actions will be performed on the initial dataset on the client.</td>
+</tr>
+<tr>
+<td style="width: 271px;">ShowHeaderFilters</td>
+<td style="width: 198px;">bool</td>
+<td style="width: 14px;">true</td>
+<td style="width: 521px;">Indicates whether or not to show the header/grid filters</td>
+</tr>
+<tr>
+<td style="width: 271px;">AllowRowSelection</td>
+<td style="width: 198px;">bool</td>
+<td style="width: 14px;">false</td>
+<td style="width: 521px;">Indicates whether or not it's possible to select a row</td>
+</tr>
+<tr>
+<td style="width: 271px;">RowClickedEvent</td>
+<td style="width: 198px;">EventCallback</td>
+<td style="width: 14px;">null</td>
+<td style="width: 521px;">The callback for when a row is clicked (only applicable when property AllowRowSelection is true)</td>
+</tr>
+<tr>
+<td style="width: 271px;">SelectedItem</td>
+<td style="width: 198px;">TModel</td>
+<td style="width: 14px;">null</td>
+<td style="width: 521px;">The selected item</td>
+</tr>
+<tr>
+<td style="width: 271px;">SelectedItemCssClass</td>
+<td style="width: 198px;">string</td>
+<td style="width: 14px;">bg-info</td>
+<td style="width: 521px;">The css class for the selected row</td>
+</tr>
+<tr>
+<td style="width: 271px;">EmptyGridText</td>
+<td style="width: 198px;">string</td>
+<td style="width: 14px;">"No records to show"</td>
+<td style="width: 521px;">The text to show when the Items list is empty</td>
+</tr>
+<tr>
+<td style="width: 271px;">IsLoading</td>
+<td style="width: 198px;">bool</td>
+<td style="width: 14px;">false</td>
+<td style="width: 521px;">Indicates whether or not data is being fetched, used to show a spinner</td>
+</tr>
+<tr>
+<td style="width: 271px;">Id</td>
+<td style="width: 198px;">string</td>
+<td style="width: 14px;">""</td>
+<td style="width: 521px;">The html identifier of the table tag</td>
+</tr>
+<tr>
+<td style="width: 271px;">ContainerCssClass</td>
+<td style="width: 198px;">string</td>
+<td style="width: 14px;">"table-responsive"</td>
+<td style="width: 521px;">The css class for the container/parent tag of the table</td>
+</tr>
+<tr>
+<td style="width: 271px;">CssClass</td>
+<td style="width: 198px;">string</td>
+<td style="width: 14px;">"table"</td>
+<td style="width: 521px;">The css class for the table tag</td>
+</tr>
+<tr>
+<td style="width: 271px;">ApplyButtonCssClass</td>
+<td style="width: 198px;">string</td>
+<td style="width: 14px;">""</td>
+<td style="width: 521px;">The css class for the "apply" buttons on grid/header filters</td>
+</tr>
+<tr>
+<td style="width: 271px;">InputCssClass</td>
+<td style="width: 198px;">string</td>
+<td style="width: 14px;">""</td>
+<td style="width: 521px;">The css class for the input tags in the grid/header filters</td>
+</tr>
+<tr>
+<td style="width: 271px;">Styles</td>
+<td style="width: 198px;">TableStyle [Enum FLAGS]</td>
+<td style="width: 14px;">null</td>
+<td style="width: 521px;">The style flags used for the table</td>
+</tr>
+<tr>
+<td style="width: 271px;">TableAttributes</td>
+<td style="width: 198px;">Dictionary&lt;string, object&gt;?</td>
+<td style="width: 14px;">null</td>
+<td style="width: 521px;">Any custom attributes for the table tag (see Blazor docs for more info)</td>
+</tr>
+<tr>
+<td style="width: 271px;">RowAttributes</td>
+<td style="width: 198px;">Dictionary&lt;string, object&gt;?</td>
+<td style="width: 14px;">null</td>
+<td style="width: 521px;">Any custom attributes for the rows (see Blazor docs for more info)</td>
+</tr>
+<tr>
+<td style="width: 271px;">ContainerHeight</td>
+<td style="width: 198px;">int</td>
+<td style="width: 14px;">300</td>
+<td style="width: 521px;">The height of the table container in pixels</td>
+</tr>
+<tr>
+<td style="width: 271px;">IncludeAdvancedFilters</td>
+<td style="width: 198px;">bool</td>
+<td style="width: 14px;">true</td>
+<td style="width: 521px;">Indicates whether to allow advanced filtering or not</td>
+</tr>
+<tr>
+<td style="width: 271px;">IncludeHeaderFilters</td>
+<td style="width: 198px;">bool</td>
+<td style="width: 14px;">false</td>
+<td style="width: 521px;">Indicates whether or not to include grid/header filters</td>
+</tr>
+<tr>
+<td style="width: 271px;">IncludeSearchButton</td>
+<td style="width: 198px;">bool</td>
+<td style="width: 14px;">false</td>
+<td style="width: 521px;">Indicates whether or not to include a search icon. When clicked filters, sorting and paging is performed on the server is FetchData has a value otherwise it happens on the client</td>
+</tr>
+<tr>
+<td style="width: 271px;">IncludeToggleFilters</td>
+<td style="width: 198px;">bool</td>
+<td style="width: 14px;">false</td>
+<td style="width: 521px;">Indicates whether or not to include a toggle icon. When clicked header/grid filters will re or disappear (only applicable when property</td>
+</tr>
+<tr>
+<td style="width: 271px;">SearchOnApplyHeaderFilter</td>
+<td style="width: 198px;">bool</td>
+<td style="width: 14px;">true</td>
+<td style="width: 521px;">Indicates whether or not a search is instantly triggered when a header/grid filter is applied</td>
+</tr>
+<tr>
+<td style="width: 271px;">AutoAddFilterWhenClickedAndNoneActive</td>
+<td style="width: 198px;">bool</td>
+<td style="width: 14px;">true</td>
+<td style="width: 521px;">Indicates whether or not to add an empty filter rule when a filterable column is clicked an no other filter rules exist.</td>
+</tr>
+</tbody>
+</table>
 ### DataTableColumn properties
 | Name                                  | Type                        | Default              | Description                                                                                                                                                                                        |
 |---------------------------------------|-----------------------------|----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
