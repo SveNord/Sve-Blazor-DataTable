@@ -19,7 +19,9 @@
                             {
                                 <div class="input-group col-10">
                                     <div class="badge badge-pill badge-light d-inline-block col-10 text-left d-flex">
-                                        <span class="col-8 pr-2 text-truncate d-inline-block align-middle" style="line-height: 3.5; white-space: pre;">@(filterRule.Column.CustomTitle == null ? filterRule.GetAppliedFilterRuleText() : filterRule.Column.CustomTitle)</span>
+                                        <span class="col-8 pr-2 text-truncate d-inline-block align-middle" style="line-height: 1.2; white-space: pre; max-height: 30px;">
+                                            @filterRule.GetAppliedFilterRuleText()
+                                        </span>
 
                                         <div class="btn-group col-2 ml-auto">
                                             <button type="button" class="close col-1" aria-label="Close" @onclick="(e) => RemoveFilterRule(filterRule.Guid)">
