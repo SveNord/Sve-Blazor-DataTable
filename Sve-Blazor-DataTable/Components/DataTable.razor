@@ -96,13 +96,13 @@
             @if (UsePaging)
             {
                 <tbody>
-                    @if (Items.Count == 0)
+                    @if (Items.Count == 0 && IsLoading)
+                    {
+                        <Spinner IsLoading="true" />
+                    }
+                    else if (Items.Count == 0)
                     {
                         <p>@EmptyGridText</p>
-                    }
-                    else if (Items.Count == 0 && IsLoading)
-                    {
-                        <p>Loading...</p>
                     }
                     else
                     {
@@ -137,13 +137,13 @@
             }
             else
             {
-                @if (Items.Count == 0)
+                @if (Items.Count == 0 && IsLoading)
+                {
+                    <Spinner IsLoading="true" />
+                }
+                else if (Items.Count == 0)
                 {
                     <p>@EmptyGridText</p>
-                }
-                else if (Items.Count == 0 && IsLoading)
-                {
-                    <p>Loading...</p>
                 }
 
                 <Virtualize TModel="TModel" TagName="tbody" ItemHeight="@GetItemHeight()" Items="Items" Context="item">
@@ -343,11 +343,12 @@
 
             foreach (DataTableColumn<TModel> column in Columns)
             {
-                if (column.CustomTitle != null) FilterableColumnProperties.Add(column.Guid, column.CustomTitle);
-                else FilterableColumnProperties.Add(column.Guid, column.GetColumnVisualPropertyName());
+                if (column.CustomTitle != null && column.IsFilterable) FilterableColumnProperties.Add(column.Guid, column.CustomTitle);
+                else if (column.IsFilterable) FilterableColumnProperties.Add(column.Guid, column.GetColumnVisualPropertyName());
                 if (IncludeHeaderFilters)
                 {
-                    HeaderFilterRules.Add(new FilterRule<TModel>(column, column.PropertyType, column.GetColumnVisualPropertyName(), column.HeaderFilterType)); //TODO: Support multiple grid filter types in the future?
+                    @if (!column.IsFilterable && !column.HeaderFilterAttributes.ContainsKey("disabled")) column.HeaderFilterAttributes.Add("disabled", "");
+                    HeaderFilterRules.Add(new FilterRule<TModel>(column, column.PropertyType, column.GetColumnVisualPropertyName(), column.HeaderFilterType));
                 }
             }
             StateHasChanged();

@@ -1,0 +1,21 @@
+﻿@if (IsLoading)
+{
+    <div class="container-fluid">
+        <div class="row">
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <div class="row">
+            <strong>@LoadingText</strong>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public bool IsLoading { get; set; }
+
+    [Parameter]
+    public string? LoadingText { get; set; } = "Fetching data...";
+}

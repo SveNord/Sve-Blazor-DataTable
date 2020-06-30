@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.InteropServices;
 
 namespace Sve.Blazor.DataTable.Components
 {
@@ -107,6 +108,9 @@ namespace Sve.Blazor.DataTable.Components
                     case TypeCode.Decimal:
                         FilterValue = default(System.Decimal);
                         break;
+                    case TypeCode.Byte:
+                        FilterValue = default(System.Byte);
+                        break;
                     case TypeCode.Boolean:
                         FilterValue = false;
                         break;
@@ -120,7 +124,6 @@ namespace Sve.Blazor.DataTable.Components
                     // TODO: Some types might be possible
                     case TypeCode.Object:
                     case TypeCode.Char:
-                    case TypeCode.Byte:
                     case TypeCode.SByte:
                     case TypeCode.Single:
                         throw new Exception("Unsupported property type for filtering");
@@ -132,10 +135,10 @@ namespace Sve.Blazor.DataTable.Components
         {
             if (FilterType.ValueRequired)
             {
-                if (Type.GetTypeCode(ExpectedValueType) == TypeCode.DateTime) return $"{PropertyName}\t{FilterType.ToString()}\t{FilterValue!.ToString(Column.DateTimeFormat.Format)}";
-                else return $"{PropertyName}\t{FilterType.ToString()}\t{FilterValue}";
+                if (Type.GetTypeCode(ExpectedValueType) == TypeCode.DateTime) return $"{Column.GetColumnVisualPropertyName()}\t{FilterType.ToString()}\t{FilterValue!.ToString(Column.DateTimeFormat.Format)}";
+                else return $"{Column.GetColumnVisualPropertyName()}\t{FilterType.ToString()}\t{FilterValue}";
             }
-            else return $"{PropertyName}\t{FilterType.ToString()}";
+            else return $"{Column.GetColumnVisualPropertyName()}\t{FilterType.ToString()}";
         }
     }
 }

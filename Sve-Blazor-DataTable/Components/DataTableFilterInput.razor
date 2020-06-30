@@ -182,12 +182,13 @@
 
             // TODO: Might be possible
             case TypeCode.Object:
-                throw new Exception("Unsupported property type for filtering");
             case TypeCode.Char:
             case TypeCode.Byte:
             case TypeCode.SByte:
             case TypeCode.Single:
-                throw new Exception("Unsupported property type for filtering");
+                @if (!Attributes.ContainsKey("disabled")) Attributes.Add("disabled", "");
+                <StringInput Attributes="Attributes" InputCssClass="@InputCssClass" />
+                break;
         }
     }
 }
@@ -263,7 +264,7 @@ else
     public bool IsHeaderRule { get; set; }
 
     [Parameter]
-    public Dictionary<string, object>? Attributes { get; set; }
+    public Dictionary<string, object> Attributes { get; set; } = new Dictionary<string, object>();
 
     [Parameter]
     public string ApplyButtonCssClass { get; set; }
