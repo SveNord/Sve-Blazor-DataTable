@@ -214,7 +214,7 @@ This project is still under active development! Currently an alpha version is av
 </tr>
 <tr>
 <td style="width: 271px;">ItemHeight</td>
-<td style="width: 198px;">int</td>
+<td style="width: 198px;">int?</td>
 <td style="width: 14px;">null</td>
 <td style="width: 521px;">The pixel height of a an item (tr) in the grid. Customize this to get better virtualization.</td>
 </tr>
