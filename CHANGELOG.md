@@ -3,6 +3,27 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [1.0.10-alpha] - 2020-06-30
+### Added
+- Item height property
+
+## [1.0.9-alpha] - 2020-06-11
+### Fixed
+- Fixed Date filters issues
+- Fixed issue with filterable and non filterable columns in combination with grid filters 
+
+## [1.0.8-alpha] - 2020-06-10
+### Fixed
+- Fixed duplicatation issue
+
+## [1.0.7-alpha] - 2020-06-10
+### Fixed
+- Fixed more consistency issues
+
+## [1.0.6-alpha] - 2020-06-10
+### Fixed
+- Fixed consistency issue
+
 ## [1.0.5-alpha] - 2020-06-09
 ### Added
 - IsHeaderVisible property to control header visibility
