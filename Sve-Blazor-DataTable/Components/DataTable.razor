@@ -293,6 +293,9 @@
     public bool IncludeAdvancedFilters { get; set; } = true;
 
     [Parameter]
+    public int? ItemHeight { get; set; }
+
+    [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     private Guid modalId;
@@ -377,6 +380,7 @@
 
     private int GetItemHeight()
     {
+        if (ItemHeight.HasValue) return ItemHeight.Value;
         if (Styles.HasFlag(TableStyle.Sm)) return 25;
         else return 90;
     }
