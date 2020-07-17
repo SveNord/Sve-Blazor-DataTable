@@ -1,0 +1,67 @@
+﻿@page "/ConditionalRendering"
+
+@inject WeatherForecastService ForecastService
+
+<h1>Conditional rendering example</h1>
+
+@if (forecasts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <label>Show date:</label>
+    <input type="checkbox" @bind-value="showDate" checked>
+    <br />
+
+    <label>Show celsius:</label>
+    <input type="checkbox" @bind-value="showTemperatueC" checked />
+    <br />
+
+    <label>Show fahrenheit:</label>
+    <input type="checkbox" @bind-value="showTemperatureF" checked />
+    <br />
+
+    <label>Show nullableInt:</label>
+    <input type="checkbox" @bind-value="showNullableInt" checked />
+    <br />
+
+    <label>Show summary:</label>
+    <input type="checkbox" @bind-value="showSummary" checked />
+    <br />
+
+    <label>Show country:</label>
+    <input type="checkbox" @bind-value="showCountry" checked />
+    <br />
+
+    <label>Show updated recently:</label>
+    <input type="checkbox" @bind-value="showUpdatedRecently" checked />
+    <br />
+
+    <DataTable TModel="WeatherForecast" Items="forecasts" IncludeAdvancedFilters="true">
+        <DataTableColumn TModel="WeatherForecast" IsVisible="showDate" Property="(e) => e.Date" />
+        <DataTableColumn TModel="WeatherForecast" IsVisible="showTemperatueC" Property="(e) => e.TemperatureC" CustomTitle="Celsius" />
+        <DataTableColumn TModel="WeatherForecast" IsVisible="showTemperatureF" Property="(e) => e.TemperatureF" CustomTitle="Fahrenheit" />
+        <DataTableColumn TModel="WeatherForecast" IsVisible="showNullableInt" Property="(e) => e.MyNullableInt" />
+        <DataTableColumn TModel="WeatherForecast" IsVisible="showSummary" Property="(e) => e.Summary" />
+        <DataTableColumn TModel="WeatherForecast" IsVisible="showCountry" Property="(e) => e.Country" />
+        <DataTableColumn TModel="WeatherForecast" IsVisible="showUpdatedRecently" Property="(e) => e.UpdatedRecently" CustomTitle="Recently updated" />
+    </DataTable>
+}
+
+@code {
+    private bool showDate = true;
+    private bool showTemperatueC = true;
+    private bool showTemperatureF = true;
+    private bool showNullableInt = true;
+    private bool showSummary = true;
+    private bool showCountry = true;
+    private bool showUpdatedRecently = true;
+
+    private WeatherForecast[] forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await ForecastService.GetForecastAsync(DateTime.Now, 5);
+    }
+}

@@ -17,7 +17,8 @@
                    UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)"
                    Attributes="Attributes"
                    ApplyButtonCssClass="@ApplyButtonCssClass"
-                   InputCssClass="@InputCssClass" />
+                   InputCssClass="@InputCssClass"
+                   MaxWidth="MaxWidth" />
     }
     else
     {
@@ -34,7 +35,8 @@
                              UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)"
                              Attributes="Attributes"
                              ApplyButtonCssClass="@ApplyButtonCssClass"
-                             InputCssClass="@InputCssClass" />
+                             InputCssClass="@InputCssClass"
+                             MaxWidth="MaxWidth" />
                 break;
             case TypeCode.Int32:
                 <NumberInput TNumber="int"
@@ -47,7 +49,8 @@
                              UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)"
                              Attributes="Attributes"
                              ApplyButtonCssClass="@ApplyButtonCssClass"
-                             InputCssClass="@InputCssClass" />
+                             InputCssClass="@InputCssClass"
+                             MaxWidth="MaxWidth" />
                 break;
             case TypeCode.Int64:
                 <NumberInput TNumber="long"
@@ -60,7 +63,8 @@
                              UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)"
                              Attributes="Attributes"
                              ApplyButtonCssClass="@ApplyButtonCssClass"
-                             InputCssClass="@InputCssClass" />
+                             InputCssClass="@InputCssClass"
+                             MaxWidth="MaxWidth" />
                 break;
             case TypeCode.UInt16:
                 <NumberInput TNumber="ushort"
@@ -72,7 +76,8 @@
                              ApplyFilterEvent="(e) => ApplyFilter(FilterRule.Guid, true)"
                              UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)"
                              ApplyButtonCssClass="@ApplyButtonCssClass"
-                             InputCssClass="@InputCssClass" />
+                             InputCssClass="@InputCssClass"
+                             MaxWidth="MaxWidth" />
                 break;
             case TypeCode.UInt32:
                 <NumberInput TNumber="uint"
@@ -85,7 +90,8 @@
                              UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)"
                              Attributes="Attributes"
                              ApplyButtonCssClass="@ApplyButtonCssClass"
-                             InputCssClass="@InputCssClass" />
+                             InputCssClass="@InputCssClass"
+                             MaxWidth="MaxWidth" />
                 break;
             case TypeCode.UInt64:
                 <NumberInput TNumber="ulong"
@@ -98,7 +104,8 @@
                              UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)"
                              Attributes="Attributes"
                              ApplyButtonCssClass="@ApplyButtonCssClass"
-                             InputCssClass="@InputCssClass" />
+                             InputCssClass="@InputCssClass"
+                             MaxWidth="MaxWidth" />
                 break;
             case TypeCode.Double:
                 <FloatingPointInput TFloatingPoint="double"
@@ -111,7 +118,8 @@
                                     UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)"
                                     Attributes="Attributes"
                                     ApplyButtonCssClass="@ApplyButtonCssClass"
-                                    InputCssClass="@InputCssClass" />
+                                    InputCssClass="@InputCssClass"
+                                    MaxWidth="MaxWidth" />
                 break;
             case TypeCode.Decimal:
                 <FloatingPointInput TFloatingPoint="decimal"
@@ -124,7 +132,8 @@
                                     UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)"
                                     Attributes="Attributes"
                                     ApplyButtonCssClass="@ApplyButtonCssClass"
-                                    InputCssClass="@InputCssClass" />
+                                    InputCssClass="@InputCssClass"
+                                    MaxWidth="MaxWidth" />
                 break;
             case TypeCode.Boolean:
                 <BooleanInput Value="@FilterRule.FilterValue"
@@ -136,7 +145,8 @@
                               UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)"
                               Attributes="Attributes"
                               ApplyButtonCssClass="@ApplyButtonCssClass"
-                              InputCssClass="@InputCssClass" />
+                              InputCssClass="@InputCssClass"
+                              MaxWidth="MaxWidth" />
                 break;
             case TypeCode.String:
                 <StringInput Value="@FilterRule.FilterValue"
@@ -148,7 +158,8 @@
                              UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)"
                              Attributes="Attributes"
                              ApplyButtonCssClass="@ApplyButtonCssClass"
-                             InputCssClass="@InputCssClass" />
+                             InputCssClass="@InputCssClass"
+                             MaxWidth="MaxWidth" />
                 break;
             case TypeCode.DateTime:
                 @if (DateTimeFormat == DateTimeFormat.Date)
@@ -162,7 +173,8 @@
                                UnApplyFilterEvent="(e) => UnApplyFilter(FilterRule.Guid, true)"
                                Attributes="Attributes"
                                ApplyButtonCssClass="@ApplyButtonCssClass"
-                               InputCssClass="@InputCssClass" />
+                               InputCssClass="@InputCssClass"
+                               MaxWidth="MaxWidth" />
                 }
                 else
                 {
@@ -176,7 +188,8 @@
                                    Attributes="Attributes"
                                    ApplyButtonCssClass="@ApplyButtonCssClass"
                                    InputCssClass="@InputCssClass"
-                                   DateTimeFormat="DateTimeFormat" />
+                                   DateTimeFormat="DateTimeFormat"
+                                   MaxWidth="MaxWidth" />
                 }
                 break;
 
@@ -187,7 +200,7 @@
             case TypeCode.SByte:
             case TypeCode.Single:
                 @if (!Attributes.ContainsKey("disabled")) Attributes.Add("disabled", "");
-                <StringInput Attributes="Attributes" InputCssClass="@InputCssClass" />
+                <StringInput Attributes="Attributes" InputCssClass="@InputCssClass" MaxWidth="MaxWidth" />
                 break;
         }
     }
@@ -197,50 +210,50 @@ else
     @if (FilterRule.ExpectedValueType.IsEnum)
     {
         var enumValues = Enum.GetNames(FilterRule.ExpectedValueType).ToList();
-        <EnumInput Value="@FilterRule.FilterValue" EnumValues="@enumValues" OnValueChangedEvent="@FilterRule.UpdateFilterValue" />
+        <EnumInput Value="@FilterRule.FilterValue" EnumValues="@enumValues" OnValueChangedEvent="@FilterRule.UpdateFilterValue" MaxWidth="MaxWidth" />
     }
     else
     {
         @switch (Type.GetTypeCode(FilterRule.ExpectedValueType))
         {
             case TypeCode.Int16:
-                <NumberInput TNumber="short" Value="@FilterRule.FilterValue" OnValueChangedEvent="@FilterRule.UpdateFilterValue" />
+                <NumberInput TNumber="short" Value="@FilterRule.FilterValue" OnValueChangedEvent="@FilterRule.UpdateFilterValue" MaxWidth="MaxWidth" />
                 break;
             case TypeCode.Int32:
-                <NumberInput TNumber="int" Value="@FilterRule.FilterValue" OnValueChangedEvent="@FilterRule.UpdateFilterValue" />
+                <NumberInput TNumber="int" Value="@FilterRule.FilterValue" OnValueChangedEvent="@FilterRule.UpdateFilterValue" MaxWidth="MaxWidth" />
                 break;
             case TypeCode.Int64:
-                <NumberInput TNumber="long" Value="@FilterRule.FilterValue" OnValueChangedEvent="@FilterRule.UpdateFilterValue" />
+                <NumberInput TNumber="long" Value="@FilterRule.FilterValue" OnValueChangedEvent="@FilterRule.UpdateFilterValue" MaxWidth="MaxWidth" />
                 break;
             case TypeCode.UInt16:
-                <NumberInput TNumber="ushort" Value="@FilterRule.FilterValue" OnValueChangedEvent="@FilterRule.UpdateFilterValue" />
+                <NumberInput TNumber="ushort" Value="@FilterRule.FilterValue" OnValueChangedEvent="@FilterRule.UpdateFilterValue" MaxWidth="MaxWidth" />
                 break;
             case TypeCode.UInt32:
-                <NumberInput TNumber="uint" Value="@FilterRule.FilterValue" OnValueChangedEvent="@FilterRule.UpdateFilterValue" />
+                <NumberInput TNumber="uint" Value="@FilterRule.FilterValue" OnValueChangedEvent="@FilterRule.UpdateFilterValue" MaxWidth="MaxWidth" />
                 break;
             case TypeCode.UInt64:
-                <NumberInput TNumber="ulong" Value="@FilterRule.FilterValue" OnValueChangedEvent="@FilterRule.UpdateFilterValue" />
+                <NumberInput TNumber="ulong" Value="@FilterRule.FilterValue" OnValueChangedEvent="@FilterRule.UpdateFilterValue" MaxWidth="MaxWidth" />
                 break;
             case TypeCode.Double:
-                <FloatingPointInput TFloatingPoint="double" Value="@FilterRule.FilterValue" OnValueChangedEvent="@FilterRule.UpdateFilterValue" />
+                <FloatingPointInput TFloatingPoint="double" Value="@FilterRule.FilterValue" OnValueChangedEvent="@FilterRule.UpdateFilterValue" MaxWidth="MaxWidth" />
                 break;
             case TypeCode.Decimal:
-                <FloatingPointInput TFloatingPoint="decimal" Value="@FilterRule.FilterValue" OnValueChangedEvent="@FilterRule.UpdateFilterValue" />
+                <FloatingPointInput TFloatingPoint="decimal" Value="@FilterRule.FilterValue" OnValueChangedEvent="@FilterRule.UpdateFilterValue" MaxWidth="MaxWidth" />
                 break;
             case TypeCode.Boolean:
-                <BooleanInput Value="@FilterRule.FilterValue" OnValueChangedEvent="@FilterRule.UpdateFilterValue" />
+                <BooleanInput Value="@FilterRule.FilterValue" OnValueChangedEvent="@FilterRule.UpdateFilterValue" MaxWidth="MaxWidth" />
                 break;
             case TypeCode.String:
-                <StringInput Value="@FilterRule.FilterValue" OnValueChangedEvent="@FilterRule.UpdateFilterValue" />
+                <StringInput Value="@FilterRule.FilterValue" OnValueChangedEvent="@FilterRule.UpdateFilterValue" MaxWidth="MaxWidth" />
                 break;
             case TypeCode.DateTime:
                 @if (DateTimeFormat == DateTimeFormat.Date)
                 {
-                    <DateInput Value="@FilterRule.FilterValue" OnValueChangedEvent="@FilterRule.UpdateFilterValue" />
+                    <DateInput Value="@FilterRule.FilterValue" OnValueChangedEvent="@FilterRule.UpdateFilterValue" MaxWidth="MaxWidth" />
                 }
                 else
                 {
-                    <DateTimeInput Value="@FilterRule.FilterValue" OnValueChangedEvent="@FilterRule.UpdateFilterValue" DateTimeFormat="DateTimeFormat" />
+                    <DateTimeInput Value="@FilterRule.FilterValue" OnValueChangedEvent="@FilterRule.UpdateFilterValue" DateTimeFormat="DateTimeFormat" MaxWidth="MaxWidth" />
                 }
                 break;
 
@@ -280,6 +293,9 @@ else
 
     [Parameter]
     public Func<Guid, bool, Task> UnApplyFilter { get; set; }
+
+    [Parameter]
+    public int MaxWidth { get; set; }
 
     private bool IncludeApply()
     {

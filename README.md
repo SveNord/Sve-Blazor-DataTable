@@ -3,10 +3,23 @@
 Blazor DataTable component with support for client/server side paging, filtering and sorting, build on top of bootstrap 4.
 
 ![Main gif](/Sve-Blazor-DataTable-Examples/Content/Main.gif)
- 
+
 
 ## Important Notice
 This project is still under active development! Currently an alpha version is available on NuGet, but keep in mind that a later version might contain breaking changes. Make sure to always check the [Changelog](CHANGELOG.md) for more information.
+
+```
+### Planned work: 
+
+- [] Code cleanup
+- [] Better documentation
+- [] Test cases
+- [] Performance tests
+- [] Memory consumption tests
+- [] CPU usage tests
+```
+
+
 
 
 ### Installation
@@ -30,7 +43,7 @@ This project is still under active development! Currently an alpha version is av
    - For a scoped import add  it to your desired Blazor component
 
 3. Reference js interop file:
-    
+   
     Add `<script src="/_content/Sve.Blazor.DataTable/js/DataTable.js"></script>` to your _Host.cshtml or your index.html
 
 ## Usage
@@ -177,6 +190,12 @@ This project is still under active development! Currently an alpha version is av
 <td style="width: 521px;">The height of the table container in pixels</td>
 </tr>
 <tr>
+<td style="width: 271px;">ContainerHeightUnit</td>
+<td style="width: 198px;">CssUnit</td>
+<td style="width: 14px;">CssUnit.Px</td>
+<td style="width: 521px;">The unit of the container height</td>
+</tr>
+<tr>
 <td style="width: 271px;">IncludeAdvancedFilters</td>
 <td style="width: 198px;">bool</td>
 <td style="width: 14px;">true</td>
@@ -221,6 +240,7 @@ This project is still under active development! Currently an alpha version is av
 </tbody>
 </table>
 
+
 ### DataTableColumn properties
 
 <table style="width: 1005px;">
@@ -250,6 +270,18 @@ This project is still under active development! Currently an alpha version is av
 <td style="width: 198px;">bool</td>
 <td style="width: 14px;">false</td>
 <td style="width: 521px;">Indicates whether or not filtering is enabled for this column</td>
+</tr>
+<tr>
+<td style="width: 271px;">IsResizable</td>
+<td style="width: 198px;">bool</td>
+<td style="width: 14px;">false</td>
+<td style="width: 521px;">Indicates whether the column is resizable</td>
+</tr>
+ <tr>
+<td style="width: 271px;">IsVisible</td>
+<td style="width: 198px;">bool</td>
+<td style="width: 14px;">true</td>
+<td style="width: 521px;">Indicates whether the column should be rendered</td>
 </tr>
 <tr>
 <td style="width: 271px;">CustomTitle</td>
@@ -330,6 +362,18 @@ This project is still under active development! Currently an alpha version is av
 <td style="width: 521px;">The height of the table container in pixels</td>
 </tr>
 <tr>
+<td style="width: 271px;">MinWidthHeader</td>
+<td style="width: 198px;">int</td>
+<td style="width: 14px;">10</td>
+<td style="width: 521px;">The height of the table container in the set units (default vw)</td>
+</tr>
+<tr>
+<td style="width: 271px;">MinWidthHeaderUnit</td>
+<td style="width: 198px;">CssUnit</td>
+<td style="width: 14px;">CssUnit.Vw</td>
+<td style="width: 521px;">The unit of the minWidthHeader property</td>
+</tr>
+<tr>
 <td style="width: 271px;">IncludeHeaderFilter</td>
 <td style="width: 198px;">bool</td>
 <td style="width: 14px;">false</td>
@@ -384,6 +428,12 @@ This project is still under active development! Currently an alpha version is av
 <td style="width: 521px;">The max width in pixels of a column</td>
 </tr>
 <tr>
+<td style="width: 271px;">MaxWidthUnit</td>
+<td style="width: 198px;">CssUnit</td>
+<td style="width: 14px;">CssUnit.Px</td>
+<td style="width: 521px;">The unit of the MaxWidth property</td>
+</tr>
+<tr>
 <td style="width: 271px;">DateTimeFormat</td>
 <td style="width: 198px;">DateTimeFormat</td>
 <td style="width: 14px;">DateTimeFormat.Date</td>
@@ -427,6 +477,7 @@ This project is still under active development! Currently an alpha version is av
 </tr>
 </tbody>
 </table>
+
 
 ### Basic table
 

@@ -13,6 +13,9 @@ else
 {
     <DataTable TModel="WeatherForecast" Items="forecasts">
         <DataTableColumn TModel="WeatherForecast">
+            <HeaderTemplate>
+                Count
+            </HeaderTemplate>
             <RowTemplate Context="forecast">
                 @(Array.IndexOf(forecasts, forecast) + 1)
             </RowTemplate>

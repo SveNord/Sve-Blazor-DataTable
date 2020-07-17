@@ -23,6 +23,9 @@
     public bool IsFilterable { get; set; } = false;
 
     [Parameter]
+    public bool IsResizable { get; set; } = false;
+
+    [Parameter]
     public string? CustomTitle { get; set; }
 
     [Parameter]
@@ -48,14 +51,53 @@
     [Parameter]
     public Dictionary<string, object> HeaderFilterAttributes { get; set; } = new Dictionary<string, object>();
 
+    /// <summary>
+    /// Indicates whether or not the column is visible
+    /// </summary>
     [Parameter]
-    public bool IsHeaderVisible { get; set; } = true;
+    public bool IsVisible
+    {
+        get => isVisible;
+        set
+        {
+            if (isVisible != value)
+            {
+                isVisible = value;
+                RaiseStateChanged();
+            }
+        }
+    }
+    private bool isVisible = true;
 
     [Parameter]
     public DateTimeFormat DateTimeFormat { get; set; } = DateTimeFormat.Date;
 
+    /// <summary>
+    /// When true the MaxWidth property will be ignored and the table will size according to it's content
+    /// </summary>
+    //[Parameter]
+    //public bool SizeToContent { get; set; }
+
+    /// <summary>
+    /// The min width of the header (Default unit is vw)
+    /// </summary>
+    [Parameter]
+    public int MinWidthHeader { get; set; } = 10;
+
+    /// <summary>
+    /// Css unit of MinWidthHeader property (default vw)
+    /// </summary>
+    [Parameter]
+    public CssUnit MinWidthHeaderUnit { get; set; } = CssUnit.Vw;
+
     [Parameter]
     public int MaxWidth { get; set; } = 210;
+
+    /// <summary>
+    /// Css unit of MaxWidth property (default px)
+    /// </summary>
+    [Parameter]
+    public CssUnit MaxWidthUnit { get; set; } = CssUnit.Px;
 
     [Parameter]
     public ObjectFilter HeaderFilterType
@@ -113,5 +155,20 @@
         }
 
         return "";
+    }
+
+    // TODO: Optimize
+    public string GetColumnHeaderStyle() => $"text-align: {TextAlignment}; min-width: {MinWidthHeader}{MinWidthHeaderUnit}; top: 0; position: sticky; z-index: 1; border-top: none;" + GetColumnResizableHeaderStyle();
+
+    // TODO: Optimize
+    public string GetColumnRowDataStyle() => $"text-align: {TextAlignment}; max-width: {MaxWidth}{MaxWidthUnit}; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;";
+
+    private string GetColumnResizableHeaderStyle() => IsResizable ? "resize: horizontal; overflow: auto;" : "";
+
+    public event EventHandler? StateChanged;
+    private void RaiseStateChanged()
+    {
+        EventHandler? handler = StateChanged;
+        handler?.Invoke(this, new EventArgs());
     }
 }

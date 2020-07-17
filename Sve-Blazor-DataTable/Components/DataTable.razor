@@ -8,6 +8,10 @@
 
 @typeparam TModel
 
+@{
+    var visibleColumns = Columns.Where(e => e.IsVisible).ToList();
+}
+
 @if (Columns.Any(e => e.IsFilterable))
 {
     <DataTableActions IncludeSearchButton="IncludeSearchButton"
@@ -18,15 +22,14 @@
 }
 
 <CascadingValue Value="this">
-    <div class="@ContainerCssClass" style='@(UsePaging ? "" : $"overflow: auto; height: {ContainerHeight}px; position: relative;") '>
+    <div class="@ContainerCssClass" style='@(UsePaging ? "" : $"overflow: auto; height: {ContainerHeight}{ContainerHeightUnit.Name}; position: relative;") '>
 
         <table id="@Id" class="@CssClass @GetTableStyleCssClasses()" @attributes="TableAttributes">
             <thead>
                 <tr>
-                    @foreach (DataTableColumn<TModel> column in Columns.Where(e => e.IsHeaderVisible))
+                    @foreach (DataTableColumn<TModel> column in visibleColumns)
                     {
-                        <th class="@column.CssClass" style='text-align: @column.TextAlignment; @GetTableHeaderBorderStyle() top: 0; position: sticky; z-index: 1; border-top: none; background-color: @(Styles.HasFlag(TableStyle.Dark) ? "black" : "white");' id="@column.Guid.ToString();" nowrap>
-
+                        <th class="@column.CssClass" style='@GetTableHeaderBorderStyle() @(column.GetColumnHeaderStyle())' id="@column.Guid.ToString();" nowrap>
 
                             @if (column.HeaderTemplate != null)
                             {
@@ -85,7 +88,8 @@
                                                           Attributes="column.HeaderFilterAttributes"
                                                           ApplyButtonCssClass="@ApplyButtonCssClass"
                                                           InputCssClass="@InputCssClass"
-                                                          DateTimeFormat="@column.DateTimeFormat" />
+                                                          DateTimeFormat="@column.DateTimeFormat"
+                                                          MaxWidth="@column.MaxWidth" />
                                 </div>
                             }
                         </th>
@@ -113,21 +117,21 @@
                                 {
                                     if (column.RowTemplate != null)
                                     {
-                                        <td style="text-align: @column.TextAlignment; @(AllowRowSelection ? " cursor: pointer;" : "") text-overflow: ellipsis; overflow: hidden; max-width: @(column.MaxWidth)px; white-space: nowrap;">@column.RowTemplate(item)</td>
+                                        <td style=" @GetTableDataRowBorderStyle() @column.GetColumnRowDataStyle()">@column.RowTemplate(item)</td>
                                     }
                                     else if (column.ChildContent != null)
                                     {
-                                        <td style="text-align: @column.TextAlignment; @(AllowRowSelection ? " cursor: pointer;" : "") text-overflow: ellipsis; overflow: hidden; max-width: @(column.MaxWidth)px; white-space: nowrap;">@column.ChildContent</td>
+                                        <td style=" @GetTableDataRowBorderStyle() @column.GetColumnRowDataStyle()">@column.ChildContent</td>
                                     }
                                     else if (column.Property != null)
                                     {
                                         var expression = column.Property.Compile();
                                         var result = expression.DynamicInvoke(item);
-                                        <td style="text-align: @column.TextAlignment; @(AllowRowSelection ? " cursor: pointer;" : "") text-overflow: ellipsis; overflow: hidden; max-width: @(column.MaxWidth)px; white-space: nowrap;">@result</td>
+                                        <td style=" @GetTableDataRowBorderStyle() @column.GetColumnRowDataStyle()">@result</td>
                                     }
                                     else
                                     {
-                                        <td style="text-align: @column.TextAlignment; @(AllowRowSelection ? " cursor: pointer;" : "") text-overflow: ellipsis; overflow: hidden; max-width: @(column.MaxWidth)px; white-space: nowrap;"></td>
+                                        <td style="@GetTableDataRowBorderStyle() @column.GetColumnRowDataStyle()"></td>
                                     }
                                 }
                             </tr>
@@ -149,25 +153,25 @@
                 <Virtualize TModel="TModel" TagName="tbody" ItemHeight="@GetItemHeight()" Items="Items" Context="item">
                     <tr id="@item.GetHashCode()" class='@(AllowRowSelection && item.Equals(SelectedItem) ? SelectedItemCssClass : "")' @onclick="(args) => OnRowClickedEvent(args, item)" style="height: 25px; @(AllowRowSelection ? " cursor: pointer;" : "" )" @attributes="RowAttributes">
 
-                        @foreach (DataTableColumn<TModel> column in Columns)
+                        @foreach (DataTableColumn<TModel> column in visibleColumns)
                         {
                             if (column.RowTemplate != null)
                             {
-                                <td style="height: 25px; @GetTableDataRowBorderStyle() text-align: @column.TextAlignment; @(AllowRowSelection ? " cursor: pointer;" : "") text-overflow: ellipsis; overflow: hidden; max-width: @(column.MaxWidth)px; white-space: nowrap;">@column.RowTemplate(item)</td>
+                                <td style="height: 25px; @GetTableDataRowBorderStyle() @column.GetColumnRowDataStyle()">@column.RowTemplate(item)</td>
                             }
                             else if (column.ChildContent != null)
                             {
-                                <td style="height: 25px; @GetTableDataRowBorderStyle() text-align: @column.TextAlignment; @(AllowRowSelection ? " cursor: pointer;" : "") text-overflow: ellipsis; overflow: hidden; max-width: @(column.MaxWidth)px; white-space: nowrap;">@column.ChildContent</td>
+                                <td style="height: 25px; @GetTableDataRowBorderStyle() @column.GetColumnRowDataStyle()">@column.ChildContent</td>
                             }
                             else if (column.Property != null)
                             {
                                 var expression = column.Property.Compile();
                                 var result = expression.DynamicInvoke(item);
-                                <td style="height: 25px; @GetTableDataRowBorderStyle() text-align: @column.TextAlignment; @(AllowRowSelection ? " cursor: pointer;" : "") text-overflow: ellipsis; overflow: hidden; max-width: @(column.MaxWidth)px; white-space: nowrap;">@result</td>
+                                <td style="height: 25px; @GetTableDataRowBorderStyle() @column.GetColumnRowDataStyle()">@result</td>
                             }
                             else
                             {
-                                <td style="height: 25px; @GetTableDataRowBorderStyle() text-align: @column.TextAlignment; @(AllowRowSelection ? " cursor: pointer;" : "") text-overflow: ellipsis; overflow: hidden; max-width: @(column.MaxWidth)px; white-space: nowrap;"></td>
+                                <td style="height: 25px; @GetTableDataRowBorderStyle() @column.GetColumnRowDataStyle()"></td>
                             }
                         }
                     </tr>
@@ -241,8 +245,17 @@
     [Parameter]
     public bool ShowHeaderFilters { get; set; } = true;
 
+    /// <summary>
+    /// The height of the table container (default px)
+    /// </summary>
     [Parameter]
     public int ContainerHeight { get; set; } = 300;
+
+    /// <summary>
+    /// Css unit of the ContainerHeight property (default px)
+    /// </summary>
+    [Parameter]
+    public CssUnit ContainerHeightUnit { get; set; } = CssUnit.Px;
 
     [Parameter]
     public bool IncludeSearchButton { get; set; } = false;
@@ -295,6 +308,10 @@
     [Parameter]
     public int? ItemHeight { get; set; }
 
+    // Might add this later, but the virtualization doesn't handle non pixels well
+    //[Parameter]
+    //public CssUnit ItemHeightUnit { get; set; } = CssUnit.Pixels;
+
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
@@ -328,9 +345,7 @@
     protected override void OnInitialized()
     {
         modalId = Guid.NewGuid();
-
         if (Items == null) Items = new List<TModel>();
-
         AllItems = Items;
     }
 
@@ -350,9 +365,19 @@
                     @if (!column.IsFilterable && !column.HeaderFilterAttributes.ContainsKey("disabled")) column.HeaderFilterAttributes.Add("disabled", "");
                     HeaderFilterRules.Add(new FilterRule<TModel>(column, column.PropertyType, column.GetColumnVisualPropertyName(), column.HeaderFilterType));
                 }
+                column.StateChanged += ColumnStateChanged;
             }
             StateHasChanged();
         }
+    }
+
+    public void Dispose()
+    {
+        foreach (DataTableColumn<TModel> column in Columns)
+        {
+            column.StateChanged -= ColumnStateChanged;
+        }
+        Columns.Clear();
     }
 
     private string GetTableStyleCssClasses()
@@ -366,14 +391,20 @@
 
     private string GetTableHeaderBorderStyle()
     {
-        //if (Styles.HasFlag(TableStyle.Bordered)) return "box-shadow: inset 1px 1px #dee2e6, 1px 1px #dee2e6;";
-        if (Styles.HasFlag(TableStyle.Bordered)) return "box-shadow: inset 1px 1px #dee2e6, 1px 1px #dee2e6; border: none;";
-        else if (Styles.HasFlag(TableStyle.Borderless)) return "";
-        else return "box-shadow: inset 0px 1px #dee2e6, 0 1px #dee2e6;";
+        // TODO: Optimize, cleanup
+        string style = "background-color: " + (Styles.HasFlag(TableStyle.Dark) ? "black;" : "white;");
+        if (Styles.HasFlag(TableStyle.Bordered)) return "box-shadow: inset 1px 1px #dee2e6, 1px 1px #dee2e6; border: none;" + style;
+        else if (Styles.HasFlag(TableStyle.Borderless)) return style;
+        else return "box-shadow: inset 0px 1px #dee2e6, 0 1px #dee2e6;" + style;
     }
+
+    private string GetTableWidthStyle(DataTableColumn<TModel> column) => $"min-width: {column.MinWidthHeader}{column.MinWidthHeaderUnit};";
 
     private string GetTableDataRowBorderStyle()
     {
+        // TODO: Optimize, cleanup
+        string style = "";
+        if (AllowRowSelection) style += "cursor: pointer;";
         if (Styles.HasFlag(TableStyle.Bordered)) return "box-shadow: inset 1px -1px #dee2e6; border: none;";
         else if (Styles.HasFlag(TableStyle.Borderless)) return "";
         else return "box-shadow: inset 0px -1px #dee2e6;";
@@ -542,4 +573,11 @@
         await RowClickedEvent.InvokeAsync(item);
         StateHasChanged();
     }
+
+    /// <summary>
+    /// Event handler for when certain important properties of the column change
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="args"></param>
+    private void ColumnStateChanged(Object? sender, EventArgs args) => StateHasChanged();
 }
