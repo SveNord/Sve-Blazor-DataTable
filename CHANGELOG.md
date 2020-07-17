@@ -3,6 +3,21 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [1.0.11-alpha] - 2020-07-17
+### Added
+- ContainerHeightUnit property 
+- IsResizable property for resizable columns
+- MinWidthHeader property 
+- MinWidthHeaderUnit property
+- MaxWidthUnit property
+- IsVisible property for conditional rendering 
+
+### Removed
+- IsHeaderVisible 
+
+### Fixed
+- Fixed issue with IsNull, IsNotNull filters not being allowed on non nullable properties
+
 ## [1.0.10-alpha] - 2020-06-30
 ### Added
 - Item height property
