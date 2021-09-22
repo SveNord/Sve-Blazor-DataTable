@@ -349,20 +349,39 @@
         AllItems = Items;
     }
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        AllItems = Items;
+        if (UsePaging)
+        {
+            //setting default page count
+            PageCount = PageCount == 0 ? 1 : PageCount;
+            if (PageCount == 1 && AllItems.Count > PageSize)
+            {
+                PageCount = (int)Math.Ceiling((double)AllItems.Count / PageSize);
+            }
+        }
+    }
+    protected async override Task OnParametersSetAsync()
+    {
+        //load data on binding the parameters instead of after render
+        await base.OnParametersSetAsync();
+        if (FetchData != null && (AllItems.Count == 0) && Columns.Count > 0) await FetchData.Invoke(new RequestArgs<TModel>(PageNr, PageSize, SortDirection, SortColumn, FilterRules));
+        else if (UsePaging && FetchData == null) await PerformClientSideDataManipulations();
+    }
+
+    protected override void OnAfterRender(bool firstRender)
     {
         if (firstRender)
         {
-            if (FetchData != null && (AllItems.Count == 0) && Columns.Count > 0) await FetchData.Invoke(new RequestArgs<TModel>(PageNr, PageSize, SortDirection, SortColumn, FilterRules));
-            else if (UsePaging && FetchData == null) await PerformClientSideDataManipulations();
-
             foreach (DataTableColumn<TModel> column in Columns)
             {
                 if (column.CustomTitle != null && column.IsFilterable) FilterableColumnProperties.Add(column.Guid, column.CustomTitle);
                 else if (column.IsFilterable) FilterableColumnProperties.Add(column.Guid, column.GetColumnVisualPropertyName());
                 if (IncludeHeaderFilters)
                 {
-                    @if (!column.IsFilterable && !column.HeaderFilterAttributes.ContainsKey("disabled")) column.HeaderFilterAttributes.Add("disabled", "");
+                    if (!column.IsFilterable && !column.HeaderFilterAttributes.ContainsKey("disabled")) column.HeaderFilterAttributes.Add("disabled", "");
                     HeaderFilterRules.Add(new FilterRule<TModel>(column, column.PropertyType, column.GetColumnVisualPropertyName(), column.HeaderFilterType));
                 }
                 column.StateChanged += ColumnStateChanged;
